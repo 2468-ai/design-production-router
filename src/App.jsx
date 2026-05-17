@@ -160,11 +160,22 @@ const STRENGTH_LABEL = {
   flexible:"Flexible", default:"Default", "action-required":"Action Required",
 };
 
+// ─── HANDOVER PACK CHECKLIST DATA ────────────────────────────────────────────
+const PACK_ITEMS = [
+  { id:"brief",    title:"Confirmed brief or task",   desc:"Written scope confirmed in full — not verbal. Chennai should be able to read this and understand exactly what's needed without a call." },
+  { id:"owner",    title:"Owner and next action",     desc:"A named person is responsible for this work. The first action is clearly defined and agreed before transfer." },
+  { id:"files",    title:"Files, links and assets",   desc:"All source files, images, fonts and links are accessible. Nothing is missing, broken or still sitting on someone's local drive." },
+  { id:"deadline", title:"Deadline and priority",     desc:"The hard deadline is confirmed and Chennai knows where this sits in the queue. Dependencies and buffer time are flagged." },
+  { id:"approval", title:"Approval route",            desc:"A single named approver is confirmed and available. Chennai knows who to send work back to and how." },
+  { id:"risks",    title:"Open issues or risks",      desc:"Any known blockers, risks or open questions are written down and included. Nothing is being assumed or left for Chennai to figure out." },
+];
+
 // ─── TOOLS ───────────────────────────────────────────────────────────────────
 const TOOLS = [
-  { id:"routing",   title:"Brief & Work Routing", subtitle:"UK or Chennai?",            icon:"⇄", desc:"Route a new brief, project phase or client amendment to the right studio.", tree:ROUTING_TREE,    maxSteps:7 },
-  { id:"handover",  title:"Handover Check",        subtitle:"Ready to transfer to Chennai?",   icon:"✓", desc:"Confirm a piece of work is safe to hand over before it moves studios.",    tree:HANDOVER_TREE,   maxSteps:6 },
-  { id:"escalation",title:"Escalation",            subtitle:"How to escalate an issue?",       icon:"⚑", desc:"Decide whether and how to escalate a live delivery issue.",               tree:ESCALATION_TREE, maxSteps:5 },
+  { id:"routing",   type:"tree",      title:"Brief & Work Routing", subtitle:"UK or Chennai?",                  icon:"⇄", desc:"Route a new brief, project phase or client amendment to the right studio.", tree:ROUTING_TREE,    maxSteps:7 },
+  { id:"handover",  type:"tree",      title:"Handover Check",       subtitle:"Ready to transfer to Chennai?",   icon:"✓", desc:"Confirm a piece of work is safe to hand over before it moves studios.",    tree:HANDOVER_TREE,   maxSteps:6 },
+  { id:"escalation",type:"tree",      title:"Escalation",           subtitle:"How to escalate an issue?",       icon:"⚑", desc:"Decide whether and how to escalate a live delivery issue.",               tree:ESCALATION_TREE, maxSteps:5 },
+  { id:"pack",      type:"checklist", title:"Handover Pack",        subtitle:"Is the pack complete?",           icon:"☑", desc:"Run through the six required items before handing work to Chennai." },
 ];
 
 // ─── DECISION ENGINE ─────────────────────────────────────────────────────────
@@ -293,7 +304,113 @@ function TreeView({ tool, onHome }) {
   );
 }
 
-// ─── HOME SCREEN ─────────────────────────────────────────────────────────────
+// ─── CHECKLIST VIEW ──────────────────────────────────────────────────────────
+function ChecklistView({ tool, onHome }) {
+  const [checked, setChecked] = useState({});
+  const total    = PACK_ITEMS.length;
+  const done     = Object.values(checked).filter(Boolean).length;
+  const allDone  = done === total;
+  const progress = Math.round((done / total) * 100);
+
+  const toggle = (id) => setChecked(c => ({ ...c, [id]: !c[id] }));
+  const reset  = () => setChecked({});
+
+  return (
+    <div style={{ width:"100%", maxWidth:620 }}>
+      <button onClick={onHome} style={{ background:"transparent", border:"none", color:TEXT_MUTED, fontSize:13, cursor:"pointer", fontFamily:FONT, marginBottom:24, display:"flex", alignItems:"center", gap:6, padding:0 }}
+        onMouseEnter={e=>e.currentTarget.style.color=TEXT_SECONDARY} onMouseLeave={e=>e.currentTarget.style.color=TEXT_MUTED}>
+        ← All tools
+      </button>
+
+      <div style={{ marginBottom:28 }}>
+        <div style={{ fontSize:11, color:TEXT_MUTED, letterSpacing:"0.15em", textTransform:"uppercase", fontWeight:700, marginBottom:6 }}>{tool.subtitle}</div>
+        <h2 style={{ fontSize:"clamp(20px,4vw,28px)", color:TEXT_PRIMARY, fontWeight:900, margin:0, letterSpacing:"-0.01em" }}>{tool.title}</h2>
+      </div>
+
+      {/* Progress bar */}
+      <div style={{ height:2, background:"#1E1E2E", borderRadius:2, marginBottom:28, overflow:"hidden" }}>
+        <div style={{ height:"100%", width:`${progress}%`, background:allDone ? TEAL : `linear-gradient(90deg,${ORANGE},${TEAL})`, borderRadius:2, transition:"width 0.4s ease" }} />
+      </div>
+
+      <div style={{ background:CARD, border:`1px solid ${allDone ? TEAL : BORDER}`, borderRadius:16, padding:"36px 40px", boxShadow:"0 24px 60px rgba(0,0,0,0.5)", transition:"border-color 0.3s" }}>
+
+        {!allDone ? (
+          <>
+            <div style={{ fontSize:11, color:TEXT_MUTED, letterSpacing:"0.15em", textTransform:"uppercase", fontWeight:700, marginBottom:20 }}>
+              {done} of {total} complete
+            </div>
+            <p style={{ fontSize:"clamp(16px,3vw,18px)", color:TEXT_SECONDARY, margin:"0 0 8px 0", lineHeight:1.5, fontWeight:500 }}>
+              Check off each item before handing work to Chennai.
+            </p>
+            <p style={{ fontSize:13, color:TEXT_MUTED, margin:"0 0 28px 0", lineHeight:1.6, fontWeight:300, fontStyle:"italic" }}>
+              All six must be confirmed. If any are missing, resolve them before transferring.
+            </p>
+
+            <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+              {PACK_ITEMS.map(item => (
+                <button key={item.id} onClick={()=>toggle(item.id)}
+                  style={{ width:"100%", padding:"16px 18px", background: checked[item.id] ? "#0A2020" : BG, border:`1px solid ${checked[item.id] ? TEAL : BORDER}`, borderRadius:10, cursor:"pointer", textAlign:"left", fontFamily:FONT, transition:"all 0.2s", display:"flex", alignItems:"flex-start", gap:14 }}>
+                  {/* Checkbox */}
+                  <div style={{ width:22, height:22, borderRadius:6, border:`2px solid ${checked[item.id] ? TEAL : "#3A3A50"}`, background: checked[item.id] ? TEAL : "transparent", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", marginTop:1, transition:"all 0.2s" }}>
+                    {checked[item.id] && <span style={{ color:"#fff", fontSize:13, fontWeight:900, lineHeight:1 }}>✓</span>}
+                  </div>
+                  <div>
+                    <div style={{ fontSize:15, color: checked[item.id] ? TEAL : TEXT_SECONDARY, fontWeight:600, marginBottom:4, transition:"color 0.2s" }}>{item.title}</div>
+                    <div style={{ fontSize:12, color:TEXT_MUTED, fontWeight:300, lineHeight:1.6 }}>{item.desc}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            {/* All done state */}
+            <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:"#0A2020", border:`1px solid #0F6060`, borderRadius:8, padding:"6px 14px", marginBottom:22 }}>
+              <span style={{ fontSize:16, color:TEAL }}>✓</span>
+              <span style={{ fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", color:"#0D9488", fontWeight:700 }}>Pack complete</span>
+            </div>
+            <h2 style={{ fontSize:"clamp(26px,5vw,38px)", color:TEAL, margin:"0 0 14px 0", fontWeight:900, letterSpacing:"-0.02em" }}>Ready to Hand Over</h2>
+            <p style={{ fontSize:15, color:TEXT_MUTED, margin:"0 0 26px 0", lineHeight:1.7, fontWeight:300 }}>
+              All six items are confirmed. Send the pack to Chennai and ask them to confirm receipt and understanding before starting.
+            </p>
+
+            {/* Summary of confirmed items */}
+            <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:10, padding:"20px 24px", marginBottom:26 }}>
+              <div style={{ fontSize:11, letterSpacing:"0.15em", textTransform:"uppercase", color:TEXT_MUTED, fontWeight:700, marginBottom:14 }}>Confirmed items</div>
+              <ul style={{ margin:0, padding:0, listStyle:"none" }}>
+                {PACK_ITEMS.map((item,i)=>(
+                  <li key={item.id} style={{ fontSize:14, color:TEXT_MUTED, padding:"7px 0 7px 20px", borderBottom:i<PACK_ITEMS.length-1?`1px solid #1E1E2E`:"none", position:"relative", lineHeight:1.6, fontWeight:300 }}>
+                    <span style={{ position:"absolute", left:0, color:TEAL, fontSize:12, top:9, fontWeight:700 }}>→</span>{item.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div style={{ background:"#0A2020", border:`1px solid #0F6060`, borderRadius:10, padding:"16px 20px", marginBottom:26 }}>
+              <div style={{ fontSize:13, color:"#5EEAD4", fontWeight:300, lineHeight:1.7 }}>
+                <strong style={{ color:TEAL, fontWeight:700 }}>Next:</strong> Send files, notes and brief together in one package. Ask Chennai to confirm understanding before starting. Agree the first check-in point and who approves the output.
+              </div>
+            </div>
+          </>
+        )}
+
+        <div style={{ display:"flex", gap:12, marginTop: allDone ? 0 : 24 }}>
+          <button onClick={reset} style={{ padding:"10px 20px", background:"transparent", color:TEXT_MUTED, border:`1px solid ${BORDER}`, borderRadius:8, fontSize:13, cursor:"pointer", fontFamily:FONT, fontWeight:500 }}
+            onMouseEnter={e=>e.target.style.color=TEXT_SECONDARY} onMouseLeave={e=>e.target.style.color=TEXT_MUTED}>
+            Reset
+          </button>
+        </div>
+      </div>
+
+      {/* Logo bottom-right */}
+      <div style={{ display:"flex", justifyContent:"flex-end", marginTop:20, paddingRight:4 }}>
+        <img src="/logo.png" alt="Paragon Works Global Studios" style={{ height:28, width:"auto", opacity:0.35 }} />
+      </div>
+    </div>
+  );
+}
+
+
 function HomeScreen({ onSelect }) {
   return (
     <div style={{ width:"100%", maxWidth:620 }}>
@@ -331,7 +448,11 @@ export default function App() {
     <>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');*{box-sizing:border-box;margin:0;padding:0;}body{font-family:${FONT};background:${BG};}`}</style>
       <div style={{ minHeight:"100vh", background:BG, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"40px 20px", fontFamily:FONT }}>
-        {activeTool ? <TreeView tool={activeTool} onHome={()=>setActiveTool(null)} /> : <HomeScreen onSelect={setActiveTool} />}
+        {activeTool
+          ? activeTool.type === "checklist"
+            ? <ChecklistView tool={activeTool} onHome={()=>setActiveTool(null)} />
+            : <TreeView tool={activeTool} onHome={()=>setActiveTool(null)} />
+          : <HomeScreen onSelect={setActiveTool} />}
       </div>
     </>
   );
