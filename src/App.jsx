@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const FONT = "'Roboto', sans-serif";
 const BG   = "#0F0F13";
@@ -554,6 +555,7 @@ export default function App() {
             : <TreeView tool={activeTool} onHome={()=>setActiveTool(null)} />
           : <HomeScreen onSelect={setActiveTool} />}
       </div>
+      <Analytics />
     </>
   );
 }
