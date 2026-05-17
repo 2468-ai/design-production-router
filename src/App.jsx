@@ -153,6 +153,9 @@ const TEAM_CONFIG = {
   monitor:  { color:BLUE,   bg:"#0A1A22", border:"#1A5060", icon:"◉", accentText:BLUE         },
   escalate: { color:AMBER,  bg:"#2A1800", border:"#7A4800", icon:"⚑", accentText:"#F59E0B"    },
   senior:   { color:RED,    bg:"#1A0808", border:"#5A1010", icon:"⚠",  accentText:"#EF4444"   },
+  defer:    { color:AMBER,  bg:"#2A1800", border:"#7A4800", icon:"⏸", accentText:"#F59E0B"    },
+  split:    { color:BLUE,   bg:"#0A1A22", border:"#1A5060", icon:"⇄", accentText:BLUE         },
+  resource: { color:ORANGE, bg:"#2A1A0F", border:"#7A3810", icon:"＋", accentText:ORANGE       },
 };
 
 const STRENGTH_LABEL = {
@@ -170,12 +173,68 @@ const PACK_ITEMS = [
   { id:"risks",    title:"Open issues or risks",      desc:"Any known blockers, risks or open questions are written down and included. Nothing is being assumed or left for Chennai to figure out." },
 ];
 
+// ─── BRIEF QUALITY CHECKER DATA ──────────────────────────────────────────────
+const BRIEF_ITEMS = [
+  { id:"wrike",     title:"Wrike brief submitted",              desc:"The brief has been formally submitted in Wrike. It is not sitting in a chat message, email or verbal conversation." },
+  { id:"scope",     title:"Scope and deliverables defined",     desc:"What needs to be produced is clearly stated — asset type, quantity, purpose and any variants. Nothing is left open to interpretation." },
+  { id:"files",     title:"Reference files and assets attached",desc:"All reference files, existing assets, brand guidelines and source files are attached or linked. The studio should not need to chase for anything." },
+  { id:"deadline",  title:"Deadline and priority stated",       desc:"A specific delivery date is confirmed alongside a clear priority level. Ambiguous deadlines like 'ASAP' or 'end of week' are not enough." },
+  { id:"specs",     title:"Format and specs confirmed",         desc:"Output format, dimensions, file type and any technical specifications are clearly stated. The studio knows exactly what to deliver." },
+];
+
+// ─── CAPACITY TRIAGE TREE ─────────────────────────────────────────────────────
+const CT = {
+  MONITOR:          { team:"monitor",   strength:"recommended",     label:"Monitor & Continue",           reason:"Volume is within capacity. No immediate action needed — keep an eye on intake and flag early if volume continues to rise.", tips:["Review the pipeline at your next daily check-in","Set a threshold for when to re-run this tool","Log the spike so patterns can be identified over time"] },
+  DEFER:            { team:"defer",     strength:"recommended",     label:"Defer Lower-Priority Briefs",  reason:"Deferring lower-priority work protects active deadlines without escalating. Agree the deferral with the requester before acting.", tips:["Identify which briefs can move without client impact","Confirm the deferral with the requester in writing","Set a new target date and update Wrike accordingly"] },
+  SPLIT:            { team:"split",     strength:"strong",          label:"Rebalance Across Studios",     reason:"Redistributing work between UK and Chennai is the most efficient way to absorb a volume spike when inputs are ready.", tips:["Run the Brief & Work Routing tool for each piece before splitting","Confirm Chennai has capacity before transferring","Complete a handover pack for every piece that moves"] },
+  DEFER_AND_SPLIT:  { team:"split",     strength:"strong",          label:"Defer Low-Priority + Rebalance",reason:"Combine deferring lower-priority work with rebalancing across studios. Together these should absorb the spike without needing to escalate.", tips:["Prioritise the active deadline work and route it to the right studio first","Confirm deferrals with requesters before actioning","Monitor for 24 hours — if pressure remains, escalate to AD"] },
+  RESOURCE:         { team:"resource",  strength:"action-required", label:"Request Additional Resource",  reason:"Volume cannot be absorbed through rebalancing or deferral alone. A resource request needs to be raised with the Account Director.", tips:["Document the volume spike with numbers before raising it","Flag to the AD today — not after the deadline slips","Specify what resource is needed: hours, skills, or an extra pair of hands"] },
+  FLAG_AD:          { team:"escalate",  strength:"action-required", label:"Flag to Account Director",     reason:"Client deadlines are at risk and the issue cannot be resolved internally. The AD needs to be briefed now so they can manage client expectations.", tips:["Brief the AD before communicating with the client","Bring a proposed solution, not just the problem","Agree the client message together before it goes out"] },
+  FLAG_AND_RESOURCE:{ team:"senior",    strength:"action-required", label:"Flag to AD + Request Resource",reason:"This is a critical capacity failure. The AD must be involved immediately and additional resource needs to be secured to protect delivery.", tips:["Escalate today — do not wait for the situation to worsen","Document the gap clearly: hours needed, skills required, timeline","Agree a same-day recovery plan with the AD"] },
+};
+
+const CAPACITY_TREE = {
+  question:"Is the current volume of work within agreed studio capacity?", hint:"Compare active briefs and hours against the studio's confirmed weekly capacity",
+  yes: CT.MONITOR,
+  no: {
+    question:"Are any client deadlines at immediate risk?", hint:"Would a client miss a delivery or approval window if nothing changes today?",
+    yes: {
+      question:"Can the work be rebalanced across UK and Chennai to absorb the spike?", hint:"Are there briefs ready to route to Chennai with clear inputs and a full handover pack?",
+      yes: {
+        question:"Does rebalancing alone protect all client deadlines?", hint:"After splitting the work, will everything still land on time?",
+        yes: CT.SPLIT,
+        no: CT.FLAG_AND_RESOURCE,
+      },
+      no: {
+        question:"Can lower-priority briefs be deferred to free up capacity for urgent work?", hint:"Are there briefs in the queue that could move without affecting a client deadline?",
+        yes: CT.FLAG_AD,
+        no: CT.FLAG_AND_RESOURCE,
+      },
+    },
+    no: {
+      question:"Can lower-priority briefs be deferred to ease the pressure?", hint:"Are there briefs that could move without impacting any confirmed client deadline?",
+      yes: {
+        question:"Can the remaining volume be rebalanced across UK and Chennai?", hint:"After deferring, is there still more work than the studio can handle this week?",
+        yes: CT.DEFER_AND_SPLIT,
+        no: CT.DEFER,
+      },
+      no: {
+        question:"Can the work be rebalanced across UK and Chennai?", hint:"Are briefs ready to route to Chennai with clear inputs?",
+        yes: CT.SPLIT,
+        no: CT.RESOURCE,
+      },
+    },
+  },
+};
+
 // ─── TOOLS ───────────────────────────────────────────────────────────────────
 const TOOLS = [
-  { id:"routing",   type:"tree",      title:"Brief & Work Routing", subtitle:"UK or Chennai?",                  icon:"⇄", desc:"Route a new brief, project phase or client amendment to the right studio.", tree:ROUTING_TREE,    maxSteps:7 },
-  { id:"handover",  type:"tree",      title:"Handover Check",       subtitle:"Ready to transfer to Chennai?",   icon:"✓", desc:"Confirm a piece of work is safe to hand over before it moves studios.",    tree:HANDOVER_TREE,   maxSteps:6 },
-  { id:"escalation",type:"tree",      title:"Escalation",           subtitle:"How to escalate an issue?",       icon:"⚑", desc:"Decide whether and how to escalate a live delivery issue.",               tree:ESCALATION_TREE, maxSteps:5 },
-  { id:"pack",      type:"checklist", title:"Handover Pack",        subtitle:"Is the pack complete?",           icon:"☑", desc:"Run through the six required items before handing work to Chennai." },
+  { id:"routing",   type:"tree",      title:"Brief & Work Routing",   subtitle:"UK or Chennai?",                 icon:"⇄", desc:"Route a new brief, project phase or client amendment to the right studio.", tree:ROUTING_TREE,    maxSteps:7 },
+  { id:"handover",  type:"tree",      title:"Handover Check",         subtitle:"Ready to transfer to Chennai?",  icon:"✓", desc:"Confirm a piece of work is safe to hand over before it moves studios.",    tree:HANDOVER_TREE,   maxSteps:6 },
+  { id:"escalation",type:"tree",      title:"Escalation",             subtitle:"How to escalate an issue?",      icon:"⚑", desc:"Decide whether and how to escalate a live delivery issue.",               tree:ESCALATION_TREE, maxSteps:5 },
+  { id:"pack",      type:"checklist", title:"Handover Pack",          subtitle:"Is the pack complete?",          icon:"☑", desc:"Run through the six required items before handing work to Chennai.",                              items:PACK_ITEMS,  readyLabel:"Ready to Hand Over",  readyDesc:"All six items are confirmed. Send the pack to Chennai and ask them to confirm receipt and understanding before starting." },
+  { id:"brief",     type:"checklist", title:"Brief Quality Checker",  subtitle:"Is this brief ready to go?",     icon:"◎", desc:"Check a brief meets the five quality standards before it enters the studio.", items:BRIEF_ITEMS, readyLabel:"Brief is Ready",      readyDesc:"All five quality checks passed. This brief can be submitted to the studio. Route it using the Brief & Work Routing tool." },
+  { id:"capacity",  type:"tree",      title:"Capacity Triage",        subtitle:"How to handle a volume spike?",  icon:"◈", desc:"Decide how to respond when studio volume exceeds capacity.",               tree:CAPACITY_TREE,   maxSteps:5 },
 ];
 
 // ─── DECISION ENGINE ─────────────────────────────────────────────────────────
@@ -307,7 +366,8 @@ function TreeView({ tool, onHome }) {
 // ─── CHECKLIST VIEW ──────────────────────────────────────────────────────────
 function ChecklistView({ tool, onHome }) {
   const [checked, setChecked] = useState({});
-  const total    = PACK_ITEMS.length;
+  const items    = tool.items;
+  const total    = items.length;
   const done     = Object.values(checked).filter(Boolean).length;
   const allDone  = done === total;
   const progress = Math.round((done / total) * 100);
@@ -347,7 +407,7 @@ function ChecklistView({ tool, onHome }) {
             </p>
 
             <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
-              {PACK_ITEMS.map(item => (
+              {items.map(item => (
                 <button key={item.id} onClick={()=>toggle(item.id)}
                   style={{ width:"100%", padding:"16px 18px", background: checked[item.id] ? "#0A2020" : BG, border:`1px solid ${checked[item.id] ? TEAL : BORDER}`, borderRadius:10, cursor:"pointer", textAlign:"left", fontFamily:FONT, transition:"all 0.2s", display:"flex", alignItems:"flex-start", gap:14 }}>
                   {/* Checkbox */}
@@ -369,17 +429,17 @@ function ChecklistView({ tool, onHome }) {
               <span style={{ fontSize:16, color:TEAL }}>✓</span>
               <span style={{ fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", color:"#0D9488", fontWeight:700 }}>Pack complete</span>
             </div>
-            <h2 style={{ fontSize:"clamp(26px,5vw,38px)", color:TEAL, margin:"0 0 14px 0", fontWeight:900, letterSpacing:"-0.02em" }}>Ready to Hand Over</h2>
+            <h2 style={{ fontSize:"clamp(26px,5vw,38px)", color:TEAL, margin:"0 0 14px 0", fontWeight:900, letterSpacing:"-0.02em" }}>{tool.readyLabel}</h2>
             <p style={{ fontSize:15, color:TEXT_MUTED, margin:"0 0 26px 0", lineHeight:1.7, fontWeight:300 }}>
-              All six items are confirmed. Send the pack to Chennai and ask them to confirm receipt and understanding before starting.
+              {tool.readyDesc}
             </p>
 
             {/* Summary of confirmed items */}
             <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:10, padding:"20px 24px", marginBottom:26 }}>
               <div style={{ fontSize:11, letterSpacing:"0.15em", textTransform:"uppercase", color:TEXT_MUTED, fontWeight:700, marginBottom:14 }}>Confirmed items</div>
               <ul style={{ margin:0, padding:0, listStyle:"none" }}>
-                {PACK_ITEMS.map((item,i)=>(
-                  <li key={item.id} style={{ fontSize:14, color:TEXT_MUTED, padding:"7px 0 7px 20px", borderBottom:i<PACK_ITEMS.length-1?`1px solid #1E1E2E`:"none", position:"relative", lineHeight:1.6, fontWeight:300 }}>
+                {items.map((item,i)=>(
+                  <li key={item.id} style={{ fontSize:14, color:TEXT_MUTED, padding:"7px 0 7px 20px", borderBottom:i<items.length-1?`1px solid #1E1E2E`:"none", position:"relative", lineHeight:1.6, fontWeight:300 }}>
                     <span style={{ position:"absolute", left:0, color:TEAL, fontSize:12, top:9, fontWeight:700 }}>→</span>{item.title}
                   </li>
                 ))}
