@@ -306,7 +306,7 @@ export default function App() {
         </div>
 
         <p style={{ marginTop: 28, fontSize: 12, color: "#8888A8", textAlign: "center", maxWidth: 500, lineHeight: 1.7, fontWeight: 300 }}>
-          A well-written brief is the single biggest factor in Offshore team success.
+          A well-written brief is the single biggest factor in team success.
         </p>
       </div>
     </>
