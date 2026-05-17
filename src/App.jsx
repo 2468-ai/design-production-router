@@ -78,7 +78,7 @@ const NEW_WORK = {
   yes:R.UK_CLIENT,
   no:{ question:"Does it require original creative thinking or new visual direction?", hint:"e.g. concepting, layout from scratch, new brand expressions",
     yes:{ question:"Is it net-new or does it involve a significant brand or style deviation?", hint:"Not a resize, update, or adaptation of existing approved work",
-      yes:R.UK_CREATIVE, no:R.UK_DEVIATION },
+      yes:R.UK_CREATIVE, no:R.EITHER },
     no:NEW_REPEATABLE }
 };
 
