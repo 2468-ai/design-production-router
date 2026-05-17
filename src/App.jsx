@@ -162,7 +162,7 @@ const STRENGTH_LABEL = {
 
 // ─── TOOLS ───────────────────────────────────────────────────────────────────
 const TOOLS = [
-  { id:"routing",   title:"Brief & Work Routing", subtitle:"UK Studio or Chennai?",            icon:"⇄", desc:"Route a new brief, project phase or client amendment to the right studio.", tree:ROUTING_TREE,    maxSteps:7 },
+  { id:"routing",   title:"Brief & Work Routing", subtitle:"UK or Chennai?",            icon:"⇄", desc:"Route a new brief, project phase or client amendment to the right studio.", tree:ROUTING_TREE,    maxSteps:7 },
   { id:"handover",  title:"Handover Check",        subtitle:"Ready to transfer to Chennai?",   icon:"✓", desc:"Confirm a piece of work is safe to hand over before it moves studios.",    tree:HANDOVER_TREE,   maxSteps:6 },
   { id:"escalation",title:"Escalation",            subtitle:"How to escalate an issue?",       icon:"⚑", desc:"Decide whether and how to escalate a live delivery issue.",               tree:ESCALATION_TREE, maxSteps:5 },
 ];
