@@ -611,7 +611,7 @@ const ONBOARDING_SECTIONS = [
         labelColor: TEXT_MUTED,
         points: [
           "Wrike — client brief submission and workflow management",
-          "Workfront — resource and team availability tracking",
+          "Workfront — job, resource and team availability tracking",
         ],
       },
       {
