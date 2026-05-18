@@ -784,10 +784,10 @@ function OnboardingView({ onHome }) {
         <div style={{ display:"flex", flexDirection:"column", gap:22 }}>
           {section.blocks.map((block, bi) => (
             <div key={bi}>
-              <div style={{ fontSize:11, color:block.labelColor, letterSpacing:"0.15em", textTransform:"uppercase", fontWeight:700, marginBottom:12 }}>{block.label}</div>
+              <div style={{ fontSize:13, color:block.labelColor, letterSpacing:"0.12em", textTransform:"uppercase", fontWeight:700, marginBottom:12 }}>{block.label}</div>
               <ul style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:8 }}>
                 {block.points.map((point, pi) => (
-                  <li key={pi} style={{ fontSize:14, color:TEXT_MUTED, paddingLeft:20, position:"relative", lineHeight:1.65, fontWeight:300 }}>
+                  <li key={pi} style={{ fontSize:15, color:TEXT_MUTED, paddingLeft:20, position:"relative", lineHeight:1.7, fontWeight:400 }}>
                     <span style={{ position:"absolute", left:0, color:section.color, fontSize:11, top:4, fontWeight:700 }}>→</span>
                     {point}
                   </li>
