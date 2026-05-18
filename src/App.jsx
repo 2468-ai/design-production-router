@@ -369,7 +369,7 @@ function TreeView({ tool, onHome }) {
       </div>
       {/* Logo bottom-right */}
       <div style={{ display:"flex", justifyContent:"flex-end", marginTop:20, paddingRight:4 }}>
-        <img src={LOGO} alt="Paragon Works Global Studios" style={{ height:28, width:"auto", opacity:0.35 }} />
+        <img src={LOGO} alt="Paragon Works Global Studios" style={{ height:28, width:"auto", opacity:0.35, mixBlendMode:"screen" }} />
       </div>
     </div>
   );
@@ -506,7 +506,7 @@ function TwoStepView({ tool, onHome }) {
       </div>
 
       <div style={{ display:"flex", justifyContent:"flex-end", marginTop:20, paddingRight:4 }}>
-        <img src={LOGO} alt="Paragon Works Global Studios" style={{ height:28, width:"auto", opacity:0.35 }} />
+        <img src={LOGO} alt="Paragon Works Global Studios" style={{ height:28, width:"auto", opacity:0.35, mixBlendMode:"screen" }} />
       </div>
     </div>
   );
@@ -824,7 +824,7 @@ function OnboardingView({ onHome }) {
       </div>
 
       <div style={{ display:"flex", justifyContent:"flex-end", marginTop:20, paddingRight:4 }}>
-        <img src={LOGO} alt="Paragon Works Global Studios" style={{ height:28, width:"auto", opacity:0.35 }} />
+        <img src={LOGO} alt="Paragon Works Global Studios" style={{ height:28, width:"auto", opacity:0.35, mixBlendMode:"screen" }} />
       </div>
     </div>
   );
@@ -837,7 +837,7 @@ function HomeScreen({ onSelect }) {
   return (
     <div style={{ width:"100%", maxWidth:620 }}>
       <div style={{ textAlign:"center", marginBottom:48 }}>
-        <img src={LOGO} alt="Paragon Works Global Studios" style={{ height:52, width:"auto", marginBottom:32, opacity:0.95 }} />
+        <img src={LOGO} alt="Paragon Works Global Studios" style={{ height:52, width:"auto", marginBottom:32, opacity:0.95, mixBlendMode:"screen" }} />
         <h1 style={{ fontSize:"clamp(24px,4vw,34px)", color:TEXT_PRIMARY, fontWeight:900, margin:"0 0 12px 0", letterSpacing:"-0.02em" }}>Delivery Decision Tools</h1>
         <p style={{ fontSize:15, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7, maxWidth:460, margin:"0 auto" }}>Select a tool to route your work, check a handover, or manage an escalation.</p>
       </div>
