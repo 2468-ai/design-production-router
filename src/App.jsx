@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const FONT = "'Roboto', sans-serif";
 const BG   = "#0F0F13";
@@ -908,6 +909,7 @@ export default function App() {
             : <TreeView tool={activeTool} onHome={()=>setActiveTool(null)} />
           : <HomeScreen onSelect={setActiveTool} />}
       </div>
+      <SpeedInsights />
     </>
   );
 }
