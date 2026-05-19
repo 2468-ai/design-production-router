@@ -45,15 +45,15 @@ const R = {
 // ─── ROUTING TREE (merged) ────────────────────────────────────────────────────
 const BRAND_STOP = { team:"brandstop", strength:"action-required", label:"Stop — Raise with Creative Lead & AD", reason:"This change is against brand guidelines. It must not proceed until the Creative Lead and Account Director have signed off. Do not brief either studio until written sign-off is confirmed.", tips:["Raise immediately with the Creative Lead via the daily review Slack channel","Brief the Account Director on the issue before any client communication","Do not route to either studio until sign-off is confirmed in writing"] };
 
-const AMEND_COPY_BRAND_CHECK = { question:"Do the copy changes affect brand tone of voice or messaging guidelines?", hint:"e.g. new claims, regulated language, brand positioning shifts", yes:R.UK_AMEND_BRAND, no:R.CHENNAI_COPY };
-const AMEND_ASSET_BRAND_CHECK = { question:"Does the new asset affect brand guidelines or visual identity?", hint:"e.g. non-brand photography, off-palette imagery, unapproved logo variant", yes:R.EITHER_ASSET, no:R.CHENNAI_ASSET };
+const AMEND_COPY_BRAND_CHECK = { question:"Do the copy changes affect brand tone of voice?", hint:"e.g. new claims, regulated language, brand positioning shifts", yes:R.UK_AMEND_BRAND, no:R.CHENNAI_COPY };
+const AMEND_ASSET_BRAND_CHECK = { question:"Does the new asset affect brand guidelines?", hint:"e.g. non-brand photography, off-palette imagery, unapproved logo variant", yes:R.EITHER_ASSET, no:R.CHENNAI_ASSET };
 
-const AMEND_BRAND_COPY   = { question:"Is the copy change against brand guidelines?", hint:"e.g. off-brand tone, unapproved claims, non-compliant messaging — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:AMEND_COPY_BRAND_CHECK };
-const AMEND_BRAND_ASSET  = { question:"Is the new asset against brand guidelines?", hint:"e.g. non-brand imagery, off-palette colours, unapproved logo use — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:AMEND_ASSET_BRAND_CHECK };
-const AMEND_BRAND_LAYOUT = { question:"Do the layout changes affect brand guidelines or visual hierarchy?",      hint:"e.g. grid structure, prominence of brand elements, spacing rules", yes:R.UK_LAYOUT_BRAND, no:R.EITHER_LAYOUT };
+const AMEND_BRAND_COPY   = { question:"Is the copy change going to structurely change the layout?", hint:"e.g. overal structal changes — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:AMEND_COPY_BRAND_CHECK };
+const AMEND_BRAND_ASSET  = { question:"Is the new asset change going to visually affect the look of the layout?", hint:"e.g. more imagery than what can hold in the template, unapproved logo use — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:AMEND_ASSET_BRAND_CHECK };
+const AMEND_BRAND_LAYOUT = { question:"Do the layout changes affect visual hierarchy?",      hint:"e.g. grid structure, prominence of brand elements, spacing rules", yes:R.UK_LAYOUT_BRAND, no:R.EITHER_LAYOUT };
 const AMEND_TYPE = { question:"What type of changes are being requested?", hint:"If multiple types apply, select the most complex", type:"choice", options:[
-  { label:"Copy or text only",           description:"Wording, dates, prices, contact details",                                  next:AMEND_BRAND_COPY   },
-  { label:"Asset or image swap",          description:"Replacing photography, icons, logos, or other visuals",                    next:AMEND_BRAND_ASSET  },
+  { label:"Copy changes",           description:"Wording, dates, prices, contact details",                                  next:AMEND_BRAND_COPY   },
+  { label:"Image or assets change",          description:"Replacing photography, footage, icons, logos, or other visuals",                    next:AMEND_BRAND_ASSET  },
   { label:"Layout or structural changes", description:"Moving elements, resizing sections, reordering content",                   next:AMEND_BRAND_LAYOUT },
   { label:"Creative direction change",    description:"New visual concept, style shift, or major departure from approved design",  next:R.UK_CREATIVE_AMEND },
 ]};
