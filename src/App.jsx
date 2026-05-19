@@ -542,7 +542,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "Chennai Studio — India",
-        labelColor: ORANGE,
+        labelColor: TEAL,
         points: [
           "Scalable production and adaptation work",
           "templated design, artworking, video production",
@@ -553,7 +553,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "The golden rules",
-        labelColor: ORANGE,
+        labelColor: TEXT_MUTED,
         points: [
           "Never send unclear or undocumented work to Chennai",
           "Keep client judgement and brand decisions in the UK",
@@ -571,7 +571,7 @@ const ONBOARDING_SECTIONS = [
     blocks: [
       {
         label: "Step 1 — Brief comes in via Wrike",
-        labelColor: BLUE,
+        labelColor: TEXT_MUTED,
         points: [
           "Client submits a brief through Wrike",
           "UK receives and reviews the brief for quality and clarity",
@@ -580,7 +580,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "Step 2 — UK Studio reviews",
-        labelColor: BLUE,
+        labelColor: ORANGE,
         points: [
           "UK assesses scope, deadline, assets and approver",
           "If creative direction or client judgement is needed — stays in UK",
@@ -589,7 +589,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "Step 3 — Handover to Chennai (if applicable)",
-        labelColor: BLUE,
+        labelColor: TEAL,
         points: [
           "Run the Handover & Brief Check before any transfer",
           "Send the full handover pack — brief, files, deadline, approver, context",
@@ -599,7 +599,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "Step 4 — Delivery and approval",
-        labelColor: BLUE,
+        labelColor: TEXT_MUTED,
         points: [
           "Output is reviewed by UK before going to the client",
           "All client approvals are managed by the UK studio",
@@ -616,7 +616,7 @@ const ONBOARDING_SECTIONS = [
     blocks: [
       {
         label: "How briefs come in",
-        labelColor: PURPLE,
+        labelColor: TEXT_MUTED,
         points: [
           "Wrike — client brief submission and workflow management",
           "Workfront — job, resource and team availability tracking",
@@ -624,7 +624,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "How files move",
-        labelColor: PURPLE,
+        labelColor: TEXT_MUTED,
         points: [
           "LucidLink — shared file access across both studios in real time",
           "Frame.io — video review, feedback and approval",
@@ -633,7 +633,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "How teams communicate",
-        labelColor: PURPLE,
+        labelColor: TEXT_MUTED,
         points: [
           "Slack — day-to-day communication between UK and Chennai",
           "Microsoft 365 — email, Teams calls and document collaboration",
@@ -641,7 +641,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "How work is produced",
-        labelColor: PURPLE,
+        labelColor: TEXT_MUTED,
         points: [
           "Adobe Creative Cloud — design, video, print and digital production",
           "All source files must be saved to LucidLink before handover",
@@ -668,7 +668,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "Before handing to Chennai, also confirm",
-        labelColor: TEA,
+        labelColor: ORANGE,
         points: [
           "A named owner and clearly defined first action",
           "All files accessible in LucidLink — not on a local drive",
@@ -679,7 +679,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "Common reasons work gets sent back",
-        labelColor: TEAL,
+        labelColor: RED,
         points: [
           "Brief only exists in Slack or email — not in Wrike",
           "Source files missing or not yet uploaded to LucidLink",
@@ -719,7 +719,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "When a lighter touch is enough",
-        labelColor: ORANGE,
+        labelColor: TEAL,
         points: [
           "Straightforward resizes or asset swaps with no design decisions involved",
           "Copy-only amends where the layout and brand are unchanged",
@@ -729,7 +729,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "Who provides oversight",
-        labelColor: ORANGE,
+        labelColor: TEXT_MUTED,
         points: [
           "Originating designer — the designer who set up or last owned the file. First point of review for Chennai outputs where the work is familiar",
           "Creative Lead — required for brand decisions, new creative directions, client-sensitive work, or when the originating designer is unavailable",
@@ -738,7 +738,7 @@ const ONBOARDING_SECTIONS = [
       },
       {
         label: "The creative daily review — Slack",
-        labelColor: ORANGE,
+        labelColor: PURPLE,
         points: [
           "There is a dedicated creative daily review channel in Slack",
           "PMs add their requests at the start of each day to help the Creative Lead plan their review time",
