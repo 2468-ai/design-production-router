@@ -43,8 +43,13 @@ const R = {
 };
 
 // ─── ROUTING TREE (merged) ────────────────────────────────────────────────────
-const AMEND_BRAND_COPY   = { question:"Do the copy changes affect brand tone of voice or messaging guidelines?", hint:"e.g. new claims, regulated language, brand positioning shifts", yes:R.UK_AMEND_BRAND, no:R.CHENNAI_COPY };
-const AMEND_BRAND_ASSET  = { question:"Does the new asset affect brand guidelines or visual identity?",          hint:"e.g. non-brand photography, off-palette imagery, unapproved logo variant", yes:R.EITHER_ASSET, no:R.CHENNAI_ASSET };
+const BRAND_STOP = { team:"brandstop", strength:"action-required", label:"Stop — Raise with Creative Lead & AD", reason:"This change is against brand guidelines. It must not proceed until the Creative Lead and Account Director have signed off. Do not brief either studio until written sign-off is confirmed.", tips:["Raise immediately with the Creative Lead via the daily review Slack channel","Brief the Account Director on the issue before any client communication","Do not route to either studio until sign-off is confirmed in writing"] };
+
+const AMEND_COPY_BRAND_CHECK = { question:"Do the copy changes affect brand tone of voice or messaging guidelines?", hint:"e.g. new claims, regulated language, brand positioning shifts", yes:R.UK_AMEND_BRAND, no:R.CHENNAI_COPY };
+const AMEND_ASSET_BRAND_CHECK = { question:"Does the new asset affect brand guidelines or visual identity?", hint:"e.g. non-brand photography, off-palette imagery, unapproved logo variant", yes:R.EITHER_ASSET, no:R.CHENNAI_ASSET };
+
+const AMEND_BRAND_COPY   = { question:"Is the copy change against brand guidelines?", hint:"e.g. off-brand tone, unapproved claims, non-compliant messaging — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:AMEND_COPY_BRAND_CHECK };
+const AMEND_BRAND_ASSET  = { question:"Is the new asset against brand guidelines?", hint:"e.g. non-brand imagery, off-palette colours, unapproved logo use — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:AMEND_ASSET_BRAND_CHECK };
 const AMEND_BRAND_LAYOUT = { question:"Do the layout changes affect brand guidelines or visual hierarchy?",      hint:"e.g. grid structure, prominence of brand elements, spacing rules", yes:R.UK_LAYOUT_BRAND, no:R.EITHER_LAYOUT };
 const AMEND_TYPE = { question:"What type of changes are being requested?", hint:"If multiple types apply, select the most complex", type:"choice", options:[
   { label:"Copy or text only",           description:"Wording, dates, prices, contact details",                                  next:AMEND_BRAND_COPY   },
@@ -150,6 +155,7 @@ const TEAM_CONFIG = {
   shared:   { color:BLUE,   bg:"#0A1A22", border:"#1A5060", icon:"⇄", accentText:BLUE         },
   process:  { color:RED,    bg:"#1A0808", border:"#5A1010", icon:"⚠",  accentText:"#EF4444"   },
   stop:     { color:RED,    bg:"#1A0808", border:"#5A1010", icon:"⊘", accentText:"#EF4444"    },
+  brandstop:{ color:RED,    bg:"#1A0808", border:"#5A1010", icon:"⛔", accentText:"#EF4444"    },
   ready:    { color:TEAL,   bg:"#0A2020", border:"#0F6060", icon:"✓", accentText:"#0D9488"    },
   resolve:  { color:TEAL,   bg:"#0A2020", border:"#0F6060", icon:"✓", accentText:"#0D9488"    },
   monitor:  { color:BLUE,   bg:"#0A1A22", border:"#1A5060", icon:"◉", accentText:BLUE         },
