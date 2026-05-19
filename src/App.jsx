@@ -48,8 +48,8 @@ const BRAND_STOP = { team:"brandstop", strength:"action-required", label:"Stop �
 const AMEND_COPY_BRAND_CHECK = { question:"Do the copy changes affect brand tone of voice?", hint:"e.g. new claims, regulated language, brand positioning shifts", yes:R.UK_AMEND_BRAND, no:R.CHENNAI_COPY };
 const AMEND_ASSET_BRAND_CHECK = { question:"Does the new asset affect brand guidelines?", hint:"e.g. non-brand photography, off-palette imagery, unapproved logo variant", yes:R.EITHER_ASSET, no:R.CHENNAI_ASSET };
 
-const AMEND_BRAND_COPY   = { question:"Is the copy change going to structurely change the layout?", hint:"e.g. overal structal changes — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:AMEND_COPY_BRAND_CHECK };
-const AMEND_BRAND_ASSET  = { question:"Is the new asset change going to visually affect the look of the layout?", hint:"e.g. more imagery than what can hold in the template, unapproved logo use — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:AMEND_ASSET_BRAND_CHECK };
+const AMEND_BRAND_COPY   = { question:"Is the copy change going to structurely change the layout?", hint:"e.g. overal structal changes — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:R.CHENNAI_COPY };
+const AMEND_BRAND_ASSET  = { question:"Is the new asset change going to visually affect the look of the layout?", hint:"e.g. more imagery than what can hold in the template, unapproved logo use — if unsure, check with the Creative Lead", yes:BRAND_STOP, no:R.CHENNAI_COPY };
 const AMEND_BRAND_LAYOUT = { question:"Do the layout changes affect visual hierarchy?",      hint:"e.g. grid structure, prominence of brand elements, spacing rules", yes:R.UK_LAYOUT_BRAND, no:R.EITHER_LAYOUT };
 const AMEND_TYPE = { question:"What type of changes are being requested?", hint:"If multiple types apply, select the most complex", type:"choice", options:[
   { label:"Copy changes",           description:"Wording, dates, prices, contact details",                                  next:AMEND_BRAND_COPY   },
