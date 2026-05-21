@@ -260,13 +260,13 @@ const TURNAROUND_DATA = [
         name:"Multi-page document",
         note:"Complex = Look & Feel creation only (up to 16pp). Pages 17+ continue at Standard rate.",
         rows:[
-          { scope:"1–8 pages",           simple:"1.5d", standard:"2d",   complex:null,  rush:"Yes"          },
-          { scope:"9–16 pages",          simple:"2.5d", standard:"3d",   complex:null,  rush:"Case by case" },
-          { scope:"17–24 pages",         simple:"3d",   standard:"4d",   complex:null,  rush:"Case by case" },
-          { scope:"25–50 pages",         simple:"4.5d", standard:"6d",   complex:null,  rush:"Limited"      },
-          { scope:"51–100 pages",        simple:"7.5d", standard:"11d",  complex:null,  rush:"No"           },
-          { scope:"101+ pages",          simple:"TOA",  standard:"TOA",  complex:null,  rush:"No"           },
-          { scope:"Up to 16pp (L&F)",    simple:null,   standard:null,   complex:"5d",  rush:"Limited"      },
+          { scope:"1–8 pages",        simple:"1.5d", standard:"2d",  complex:null,  rush:"Yes",          eff1Simple:"2–4 hrs",   eff1Standard:"4–6 hrs",   eff1Complex:null,        revSimple:"2–4 hrs",  revStandard:"4–6 hrs",  revComplex:null       },
+          { scope:"9–16 pages",       simple:"2.5d", standard:"3d",  complex:null,  rush:"Case by case", eff1Simple:"4–8 hrs",   eff1Standard:"8–12 hrs",  eff1Complex:null,        revSimple:"4–6 hrs",  revStandard:"6–10 hrs", revComplex:null       },
+          { scope:"17–24 pages",      simple:"3d",   standard:"4d",  complex:null,  rush:"Case by case", eff1Simple:"8–12 hrs",  eff1Standard:"14–18 hrs", eff1Complex:null,        revSimple:"5–7 hrs",  revStandard:"8–10 hrs", revComplex:null       },
+          { scope:"25–50 pages",      simple:"4.5d", standard:"6d",  complex:null,  rush:"Limited",      eff1Simple:"18–26 hrs", eff1Standard:"28–40 hrs", eff1Complex:null,        revSimple:"6–8 hrs",  revStandard:"10–16 hrs",revComplex:null       },
+          { scope:"51–100 pages",     simple:"7.5d", standard:"11d", complex:null,  rush:"No",           eff1Simple:"40–52 hrs", eff1Standard:"60–80 hrs", eff1Complex:null,        revSimple:"8–12 hrs", revStandard:"16–24 hrs",revComplex:null       },
+          { scope:"101+ pages",       simple:"TOA",  standard:"TOA", complex:null,  rush:"No",           eff1Simple:"TOA",       eff1Standard:"TOA",       eff1Complex:null,        revSimple:"TOA",      revStandard:"TOA",      revComplex:null       },
+          { scope:"Up to 16pp (L&F)", simple:null,   standard:null,  complex:"5d",  rush:"Limited",      eff1Simple:null,        eff1Standard:null,        eff1Complex:"16–24 hrs", revSimple:null,       revStandard:null,       revComplex:"6–10 hrs" },
         ]
       }
     ]
@@ -277,10 +277,10 @@ const TURNAROUND_DATA = [
       {
         name:"PowerPoint / Slides",
         rows:[
-          { scope:"1–10 slides",         simple:"1.5d", standard:"2d",  complex:"2.5d", rush:"Yes"          },
-          { scope:"11–25 slides",        simple:"2d",   standard:"3d",  complex:"4d",   rush:"Case by case" },
-          { scope:"26–50 slides",        simple:"3.5d", standard:"5d",  complex:"6d",   rush:"Limited"      },
-          { scope:"51+ slides",          simple:null,   standard:null,  complex:"TOA",  rush:"No"           },
+          { scope:"1–10 slides",  simple:"1.5d", standard:"2d",  complex:"2.5d", rush:"Yes",          eff1Simple:"2–4 hrs",   eff1Standard:"3–6 hrs",   eff1Complex:"4–8 hrs",   revSimple:"2–4 hrs",  revStandard:"4–6 hrs",  revComplex:"6–8 hrs"  },
+          { scope:"11–25 slides", simple:"2d",   standard:"3d",  complex:"4d",   rush:"Case by case", eff1Simple:"6–10 hrs",  eff1Standard:"10–16 hrs", eff1Complex:"16–20 hrs", revSimple:"4–6 hrs",  revStandard:"6–10 hrs", revComplex:"8–12 hrs" },
+          { scope:"26–50 slides", simple:"3.5d", standard:"5d",  complex:"6d",   rush:"Limited",      eff1Simple:"14–18 hrs", eff1Standard:"24–32 hrs", eff1Complex:"32–40 hrs", revSimple:"6–10 hrs", revStandard:"10–16 hrs",revComplex:"16 hrs"   },
+          { scope:"51+ slides",   simple:null,   standard:null,  complex:"TOA",  rush:"No",           eff1Simple:null,        eff1Standard:null,        eff1Complex:"TOA",       revSimple:null,       revStandard:null,       revComplex:"TOA"      },
         ]
       }
     ]
@@ -292,26 +292,26 @@ const TURNAROUND_DATA = [
         name:"Video Build",
         note:"Simple = supplied footage, basic cut. Standard = brand-led with motion graphics. Complex = full production, heavy animation.",
         rows:[
-          { scope:"Up to 15\"",          simple:"2d",   standard:"2.5d", complex:null,  rush:"Yes"          },
-          { scope:"Up to 30\"",          simple:"2.5d", standard:"3.5d", complex:null,  rush:"Yes"          },
-          { scope:"Up to 60\"",          simple:"3d",   standard:"4.5d", complex:"6d",  rush:"Case by case" },
-          { scope:"Up to 120\"",         simple:"3.5d", standard:"5.5d", complex:"7d",  rush:"Limited"      },
-          { scope:"Up to 240\"",         simple:"4.5d", standard:"7d",   complex:"8d",  rush:"No"           },
-          { scope:"Up to 300\"",         simple:"5.5d", standard:"7d",   complex:"10d", rush:"No"           },
-          { scope:"300\"+",              simple:"TOA",  standard:"TOA",  complex:"TOA", rush:"No"           },
+          { scope:"Up to 15\"",  simple:"2d",   standard:"2.5d", complex:null,  rush:"Yes",          eff1Simple:"2–4 hrs",   eff1Standard:"4–6 hrs",   eff1Complex:null,        revSimple:"1–2 hrs",  revStandard:"2–3 hrs",  revComplex:null        },
+          { scope:"Up to 30\"",  simple:"2.5d", standard:"3.5d", complex:null,  rush:"Yes",          eff1Simple:"4–8 hrs",   eff1Standard:"8–12 hrs",  eff1Complex:null,        revSimple:"1–2 hrs",  revStandard:"2–3 hrs",  revComplex:null        },
+          { scope:"Up to 60\"",  simple:"3d",   standard:"4.5d", complex:"6d",  rush:"Case by case", eff1Simple:"8–12 hrs",  eff1Standard:"12–20 hrs", eff1Complex:"20–28 hrs", revSimple:"2–3 hrs",  revStandard:"3–5 hrs",  revComplex:"5–8 hrs"   },
+          { scope:"Up to 120\"", simple:"3.5d", standard:"5.5d", complex:"7d",  rush:"Limited",      eff1Simple:"12–16 hrs", eff1Standard:"20–28 hrs", eff1Complex:"28–40 hrs", revSimple:"3–4 hrs",  revStandard:"5–8 hrs",  revComplex:"8–12 hrs"  },
+          { scope:"Up to 240\"", simple:"4.5d", standard:"7d",   complex:"8d",  rush:"No",           eff1Simple:"16–24 hrs", eff1Standard:"28–40 hrs", eff1Complex:"40–50 hrs", revSimple:"4–6 hrs",  revStandard:"6–10 hrs", revComplex:"12–15 hrs" },
+          { scope:"Up to 300\"", simple:"5.5d", standard:"7d",   complex:"10d", rush:"No",           eff1Simple:"24–32 hrs", eff1Standard:"34–38 hrs", eff1Complex:"50–60 hrs", revSimple:"6–8 hrs",  revStandard:"10–12 hrs",revComplex:"15–18 hrs" },
+          { scope:"300\"+",      simple:"TOA",  standard:"TOA",  complex:"TOA", rush:"No",           eff1Simple:"TOA",       eff1Standard:"TOA",       eff1Complex:"TOA",       revSimple:"TOA",      revStandard:"TOA",      revComplex:"TOA"       },
         ]
       },
       {
         name:"Storyboard",
         note:"Simple = rough frames with supplied script. Standard = polished frames with scene direction. Complex = animatic or full motion.",
         rows:[
-          { scope:"Up to 15\"",          simple:"2d",   standard:null,  complex:null,  rush:"Yes"          },
-          { scope:"Up to 30\"",          simple:"2.5d", standard:"3d",  complex:"4d",  rush:"Yes"          },
-          { scope:"Up to 60\"",          simple:null,   standard:"4d",  complex:"4d",  rush:"Case by case" },
-          { scope:"Up to 120\"",         simple:null,   standard:"4d",  complex:"5d",  rush:"Limited"      },
-          { scope:"Up to 240\"",         simple:null,   standard:"5d",  complex:"5d",  rush:"Limited"      },
-          { scope:"Up to 300\"",         simple:null,   standard:"6d",  complex:"6d",  rush:"Limited"      },
-          { scope:"240\"+",              simple:"TOA",  standard:"TOA", complex:"TOA", rush:"No"           },
+          { scope:"Up to 15\"",  simple:"2d",   standard:null,  complex:null,  rush:"Yes",          eff1Simple:"2–3 hrs",   eff1Standard:null,        eff1Complex:null,        revSimple:"1 hr",     revStandard:null,       revComplex:null        },
+          { scope:"Up to 30\"",  simple:"2.5d", standard:"3d",  complex:"4d",  rush:"Yes",          eff1Simple:"3–4 hrs",   eff1Standard:"4–6 hrs",   eff1Complex:"6–8 hrs",   revSimple:"1–2 hrs",  revStandard:"2–3 hrs",  revComplex:"3–4 hrs"   },
+          { scope:"Up to 60\"",  simple:null,   standard:"4d",  complex:"4d",  rush:"Case by case", eff1Simple:null,        eff1Standard:"4–8 hrs",   eff1Complex:"8–12 hrs",  revSimple:null,       revStandard:"2–3 hrs",  revComplex:"3–5 hrs"   },
+          { scope:"Up to 120\"", simple:null,   standard:"4d",  complex:"5d",  rush:"Limited",      eff1Simple:null,        eff1Standard:"8–12 hrs",  eff1Complex:"12–16 hrs", revSimple:null,       revStandard:"3–4 hrs",  revComplex:"4–6 hrs"   },
+          { scope:"Up to 240\"", simple:null,   standard:"5d",  complex:"5d",  rush:"Limited",      eff1Simple:null,        eff1Standard:"18–22 hrs", eff1Complex:"24–26 hrs", revSimple:null,       revStandard:"3–4 hrs",  revComplex:"8–10 hrs"  },
+          { scope:"Up to 300\"", simple:null,   standard:"6d",  complex:"6d",  rush:"Limited",      eff1Simple:null,        eff1Standard:"24–30 hrs", eff1Complex:"28–37.5 hrs",revSimple:null,      revStandard:"3–4 hrs",  revComplex:"10–12 hrs" },
+          { scope:"240\"+",      simple:"TOA",  standard:"TOA", complex:"TOA", rush:"No",           eff1Simple:"TOA",       eff1Standard:"TOA",       eff1Complex:"TOA",       revSimple:"TOA",      revStandard:"TOA",      revComplex:"TOA"       },
         ]
       }
     ]
@@ -322,29 +322,29 @@ const TURNAROUND_DATA = [
       {
         name:"Web / Social Banner (Static)",
         rows:[
-          { scope:"1–3 assets",          simple:"2.5d", standard:null,   complex:null,  rush:"Yes"          },
-          { scope:"4–8 assets",          simple:null,   standard:"3.5d", complex:null,  rush:"Yes"          },
-          { scope:"9+ assets",           simple:null,   standard:null,   complex:"5d",  rush:"Case by case" },
+          { scope:"1–3 assets", simple:"2.5d", standard:null,   complex:null,  rush:"Yes",          eff1Simple:"4–8 hrs",   eff1Standard:null,        eff1Complex:null,        revSimple:"1–2 hrs", revStandard:null,      revComplex:null      },
+          { scope:"4–8 assets", simple:null,   standard:"3.5d", complex:null,  rush:"Yes",          eff1Simple:null,        eff1Standard:"8–16 hrs",  eff1Complex:null,        revSimple:null,      revStandard:"2–4 hrs", revComplex:null      },
+          { scope:"9+ assets",  simple:null,   standard:null,   complex:"5d",  rush:"Case by case", eff1Simple:null,        eff1Standard:null,        eff1Complex:"16–32 hrs", revSimple:null,      revStandard:null,      revComplex:"4–8 hrs" },
         ]
       },
       {
         name:"Key Visual",
         note:"Single-asset scope. Multi-asset campaigns require separate scoping.",
         rows:[
-          { scope:"Single asset",        simple:"2.5d", standard:"3.5d", complex:"TOA", rush:"Yes"          },
+          { scope:"Single asset", simple:"2.5d", standard:"3.5d", complex:"TOA", rush:"Yes", eff1Simple:"4–8 hrs", eff1Standard:"8–16 hrs", eff1Complex:"TOA", revSimple:"2–4 hrs", revStandard:"2–4 hrs", revComplex:"TOA" },
         ]
       },
       {
         name:"Email",
         rows:[
-          { scope:"Single email",        simple:"2.5d", standard:"3.5d", complex:null,  rush:"Yes"          },
-          { scope:"Multi-variant",       simple:null,   standard:null,   complex:"TOA", rush:"No"           },
+          { scope:"Single email",  simple:"2.5d", standard:"3.5d", complex:null,  rush:"Yes", eff1Simple:"2–4 hrs", eff1Standard:"6–12 hrs", eff1Complex:null,  revSimple:"1–2 hrs", revStandard:"2–4 hrs", revComplex:null  },
+          { scope:"Multi-variant", simple:null,   standard:null,   complex:"TOA", rush:"No",  eff1Simple:null,      eff1Standard:null,       eff1Complex:"TOA", revSimple:null,      revStandard:null,      revComplex:"TOA" },
         ]
       },
       {
         name:"Infographic",
         rows:[
-          { scope:"Single asset",        simple:"3.5d", standard:"4.5d", complex:"6d",  rush:"Case by case" },
+          { scope:"Single asset", simple:"3.5d", standard:"4.5d", complex:"6d", rush:"Case by case", eff1Simple:"8–12 hrs", eff1Standard:"16–24 hrs", eff1Complex:"TOA", revSimple:"2–4 hrs", revStandard:"4–8 hrs", revComplex:"TOA" },
         ]
       }
     ]
@@ -356,24 +356,23 @@ const TURNAROUND_DATA = [
         name:"Large Format Print",
         note:"Lead times are to print-ready artwork. Includes bleed, safe area and CMYK setup. Simple = adapt existing. Standard = new layout. Complex = custom or non-standard format.",
         rows:[
-          { scope:"Single panel",        simple:"1.5d", standard:"2.5d", complex:"4d",  rush:"Yes"          },
-          { scope:"2–5 panels (suite)",  simple:"3d",   standard:"4.5d", complex:null,  rush:"Limited"      },
+          { scope:"Single panel",       simple:"1.5d", standard:"2.5d", complex:"4d",  rush:"Yes",     eff1Simple:"2–4 hrs",  eff1Standard:"4–8 hrs",  eff1Complex:"8–16 hrs", revSimple:"1–2 hrs", revStandard:"2–4 hrs", revComplex:"4–6 hrs" },
+          { scope:"2–5 panels (suite)", simple:"3d",   standard:"4.5d", complex:null,  rush:"Limited", eff1Simple:"6–14 hrs", eff1Standard:"12–28 hrs",eff1Complex:null,       revSimple:"2–4 hrs", revStandard:"4–8 hrs", revComplex:null      },
         ]
       },
       {
         name:"Event Screen Graphics",
         note:"9+ screens or animation is TOA — requires bespoke scoping.",
         rows:[
-          { scope:"1–3 screens",         simple:"1.5d", standard:"2.5d", complex:null,  rush:"Yes"          },
-          { scope:"4–8 screens",         simple:"2.5d", standard:"3.5d", complex:null,  rush:"Case by case" },
-          { scope:"9+ screens",          simple:"TOA",  standard:"TOA",  complex:null,  rush:"No"           },
+          { scope:"1–3 screens", simple:"1.5d", standard:"2.5d", complex:null, rush:"Yes",          eff1Simple:"2–4 hrs", eff1Standard:"4–8 hrs",  eff1Complex:null, revSimple:"1 hr",    revStandard:"1–2 hrs", revComplex:null },
+          { scope:"4–8 screens", simple:"2.5d", standard:"3.5d", complex:null, rush:"Case by case", eff1Simple:"4–8 hrs", eff1Standard:"8–16 hrs", eff1Complex:null, revSimple:"1–2 hrs", revStandard:"2–4 hrs", revComplex:null },
+          { scope:"9+ screens",  simple:"TOA",  standard:"TOA",  complex:null, rush:"No",           eff1Simple:"TOA",     eff1Standard:"TOA",      eff1Complex:null, revSimple:"TOA",     revStandard:"TOA",     revComplex:null },
         ]
       }
     ]
   }
 ];
-
-function TurnaroundPanel({ team }) {
+function TurnaroundPanel({ team, isAmend }) {
   const excluded = ["brandstop","process","stop"];
   if (!team || excluded.includes(team)) return null;
   const [open, setOpen] = useState(false);
@@ -382,21 +381,52 @@ function TurnaroundPanel({ team }) {
   const rushColor = (r) => !r ? TEXT_MUTED : r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
   const valColor  = (v) => !v || v==="TOA" ? "#4A4A6A" : TEXT_SECONDARY;
   const valWeight = (v) => !v || v==="TOA" ? 300 : 500;
+  const effColor  = (v) => !v || v==="TOA" ? "#3A3A50" : "#6A6A8A";
+  // In amendment mode: show revision effort. In 1st-draft mode: show lead time + production effort stacked.
+  const getLead = (row, key) => isAmend ? null : row[key];
+  const getEff  = (row, key) => {
+    const cap = key.charAt(0).toUpperCase()+key.slice(1);
+    return isAmend ? row[`rev${cap}`] : row[`eff1${cap}`];
+  };
+  const accentColor = isAmend ? AMBER : BLUE;
+  const label = isAmend ? "Amendment effort / round" : "Lead time & effort";
+  const footer = isAmend
+    ? "Hours per revision round · One round = one consolidated set of feedback · Rounds are in addition to first-draft lead time · TOA = bespoke scoping required"
+    : "Lead time = working days from brief sign-off to first draft · Effort = production hours (excl. set-up: Simple +3 hrs, Standard +4 hrs, Complex +6 hrs) · TOA = bespoke scoping required";
   return (
     <div style={{ marginBottom:16 }}>
       <button onClick={() => setOpen(o => !o)}
-        style={{ width:"100%", background:BG, border:`1px solid ${BORDER}`, borderRadius:open?"10px 10px 0 0":10, padding:"12px 16px", cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", justifyContent:"space-between", transition:"border-color 0.2s, border-radius 0.1s" }}
-        onMouseEnter={e=>{ if(!open) e.currentTarget.style.borderColor=BLUE; }}
+        style={{ width:"100%", background:BG, border:`1px solid ${open ? accentColor : BORDER}`, borderRadius:open?"10px 10px 0 0":10, padding:"12px 16px", cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", justifyContent:"space-between", transition:"border-color 0.2s, border-radius 0.1s" }}
+        onMouseEnter={e=>{ if(!open) e.currentTarget.style.borderColor=accentColor; }}
         onMouseLeave={e=>{ if(!open) e.currentTarget.style.borderColor=BORDER; }}>
         <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-          <span style={{ fontSize:13, color:BLUE }}>⏱</span>
-          <span style={{ fontSize:12, color:TEXT_MUTED, fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase" }}>Turnaround reference</span>
+          <span style={{ fontSize:13, color:accentColor }}>⏱</span>
+          <span style={{ fontSize:12, color:TEXT_MUTED, fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase" }}>{label}</span>
+          {isAmend && <span style={{ fontSize:10, background:"#2A1800", border:"1px solid #7A4800", borderRadius:4, padding:"1px 7px", color:"#F59E0B", fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase" }}>per round</span>}
         </div>
         <span style={{ fontSize:14, color:TEXT_MUTED, display:"inline-block", transform:open?"rotate(90deg)":"rotate(0deg)", transition:"transform 0.2s" }}>›</span>
       </button>
       {open && (
-        <div style={{ background:BG, border:`1px solid ${BORDER}`, borderTop:"none", borderRadius:"0 0 10px 10px", overflow:"hidden" }}>
-          <div style={{ display:"flex", gap:5, padding:"8px 12px", borderBottom:`1px solid #1E1E2E`, overflowX:"auto" }}>
+        <div style={{ background:BG, border:`1px solid ${accentColor}`, borderTop:"none", borderRadius:"0 0 10px 10px", overflow:"hidden" }}>
+          {isAmend && (
+            <div style={{ padding:"8px 14px", background:"#1A1000", borderBottom:"1px solid #3A2800", display:"flex", alignItems:"center", gap:8 }}>
+              <span style={{ fontSize:11, color:"#F59E0B" }}>⚑</span>
+              <span style={{ fontSize:11, color:"#D97706", fontWeight:300, lineHeight:1.5 }}>Effort estimates per round — not calendar days. One round = one consolidated set of feedback. Revision rounds are in addition to the first-draft lead time.</span>
+            </div>
+          )}
+          {!isAmend && (
+            <div style={{ padding:"6px 14px", background:"#0A0A14", borderBottom:"1px solid #1A1A28", display:"flex", gap:16 }}>
+              <div style={{ display:"flex", alignItems:"center", gap:5 }}>
+                <div style={{ width:6, height:6, borderRadius:"50%", background:TEXT_SECONDARY, flexShrink:0 }}/>
+                <span style={{ fontSize:10, color:"#5A5A7A", fontWeight:300 }}>Top = lead time (days)</span>
+              </div>
+              <div style={{ display:"flex", alignItems:"center", gap:5 }}>
+                <div style={{ width:6, height:6, borderRadius:"50%", background:"#6A6A8A", flexShrink:0 }}/>
+                <span style={{ fontSize:10, color:"#5A5A7A", fontWeight:300 }}>Below = production effort (hrs)</span>
+              </div>
+            </div>
+          )}
+          <div style={{ display:"flex", gap:5, padding:"8px 12px", borderBottom:"1px solid #1E1E2E", overflowX:"auto" }}>
             {TURNAROUND_DATA.map((c,i) => (
               <button key={i} onClick={()=>setActiveIdx(i)}
                 style={{ padding:"5px 11px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:6, cursor:"pointer", fontFamily:FONT, whiteSpace:"nowrap", display:"flex", alignItems:"center", gap:5, flexShrink:0, transition:"all 0.15s" }}>
@@ -406,27 +436,48 @@ function TurnaroundPanel({ team }) {
             ))}
           </div>
           {cat.assets.map((asset,ai) => (
-            <div key={ai} style={{ padding:"12px 14px", borderBottom:ai<cat.assets.length-1?`1px solid #1A1A28`:"none" }}>
+            <div key={ai} style={{ padding:"12px 14px", borderBottom:ai<cat.assets.length-1?"1px solid #1A1A28":"none" }}>
               <div style={{ fontSize:11, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:asset.note?3:8 }}>{asset.name}</div>
               {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginBottom:8, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
-              <div style={{ display:"grid", gridTemplateColumns:"1fr 56px 68px 68px 90px", gap:0, marginBottom:2 }}>
-                {["Scope","Simple","Std","Complex","Rush"].map(h=>(
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 72px 76px 76px 80px", gap:0, marginBottom:2 }}>
+                {["Scope","Simple","Standard","Complex","Rush"].map(h=>(
                   <div key={h} style={{ fontSize:9, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", padding:"3px 5px" }}>{h}</div>
                 ))}
               </div>
-              {asset.rows.map((row,ri) => (
-                <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 56px 68px 68px 90px", gap:0, borderTop:`1px solid #1A1A28` }}>
-                  <div style={{ fontSize:12, color:TEXT_MUTED, padding:"6px 5px" }}>{row.scope}</div>
-                  <div style={{ fontSize:12, color:valColor(row.simple),  padding:"6px 5px", fontWeight:valWeight(row.simple)  }}>{row.simple||"—"}</div>
-                  <div style={{ fontSize:12, color:valColor(row.standard),padding:"6px 5px", fontWeight:valWeight(row.standard)}}>{row.standard||"—"}</div>
-                  <div style={{ fontSize:12, color:valColor(row.complex), padding:"6px 5px", fontWeight:valWeight(row.complex) }}>{row.complex||"—"}</div>
-                  <div style={{ fontSize:11, padding:"6px 5px", lineHeight:1.4, color:rushColor(row.rush) }}>{row.rush}</div>
-                </div>
-              ))}
+              {asset.rows.map((row,ri) => {
+                const keys = ["simple","standard","complex"];
+                return (
+                  <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 72px 76px 76px 80px", gap:0, borderTop:"1px solid #1A1A28" }}>
+                    <div style={{ fontSize:12, color:TEXT_MUTED, padding:"7px 5px", lineHeight:1.4 }}>{row.scope}</div>
+                    {keys.map(k => {
+                      const lead = getLead(row,k);
+                      const eff  = getEff(row,k);
+                      const hasVal = lead || eff;
+                      return (
+                        <div key={k} style={{ padding:"7px 5px" }}>
+                          {isAmend ? (
+                            <span style={{ fontSize:12, color:valColor(eff), fontWeight:valWeight(eff) }}>{eff||"—"}</span>
+                          ) : (
+                            hasVal ? (
+                              <>
+                                <div style={{ fontSize:12, color:valColor(lead), fontWeight:valWeight(lead), lineHeight:1.3 }}>{lead||"—"}</div>
+                                {eff && <div style={{ fontSize:10, color:effColor(eff), fontWeight:300, lineHeight:1.3, marginTop:1 }}>{eff}</div>}
+                              </>
+                            ) : (
+                              <span style={{ fontSize:12, color:"#4A4A6A" }}>—</span>
+                            )
+                          )}
+                        </div>
+                      );
+                    })}
+                    <div style={{ fontSize:11, padding:"7px 5px", lineHeight:1.4, color:rushColor(row.rush) }}>{row.rush}</div>
+                  </div>
+                );
+              })}
             </div>
           ))}
-          <div style={{ padding:"8px 14px", borderTop:`1px solid #1E1E2E` }}>
-            <span style={{ fontSize:10, color:"#3A3A50", fontWeight:300 }}>Working days from brief sign-off to first draft · 3 revision rounds included · TOA = bespoke scoping required · Rush subject to studio capacity</span>
+          <div style={{ padding:"8px 14px", borderTop:"1px solid #1E1E2E" }}>
+            <span style={{ fontSize:10, color:"#3A3A50", fontWeight:300 }}>{footer}</span>
           </div>
         </div>
       )}
@@ -445,29 +496,30 @@ const TOOLS = [
 
 // ─── DECISION ENGINE ─────────────────────────────────────────────────────────
 function useTree(tree) {
-  const [history, setHistory] = useState([{ node:tree, risk:false, docWarning:false }]);
+  const [history, setHistory] = useState([{ node:tree, risk:false, docWarning:false, isAmend:false }]);
   const current  = history[history.length-1];
   const node     = current.node;
   const isResult = !!node.team;
   const navigate = (nextNode, opts={}) => {
     const prev = history[history.length-1];
-    setHistory(h=>[...h,{ node:nextNode, risk:prev.risk||!!opts.risk, docWarning:prev.docWarning||!!opts.docWarning }]);
+    setHistory(h=>[...h,{ node:nextNode, risk:prev.risk||!!opts.risk, docWarning:prev.docWarning||!!opts.docWarning, isAmend:prev.isAmend||!!opts.isAmend }]);
   };
   return {
     node, isResult,
     riskFlag: current.risk,
     docWarn:  current.docWarning,
+    isAmend:  current.isAmend,
     steps:    history.length,
-    answer:   (choice) => navigate(node[choice]),
+    answer:   (choice) => navigate(node[choice], { isAmend: history.length === 1 && choice === "yes" }),
     choose:   (option) => navigate(option.next,{ risk:option.risk, docWarning:option.docWarning }),
     back:     () => history.length>1 && setHistory(h=>h.slice(0,-1)),
-    reset:    () => setHistory([{ node:tree, risk:false, docWarning:false }]),
+    reset:    () => setHistory([{ node:tree, risk:false, docWarning:false, isAmend:false }]),
   };
 }
 
 // ─── TREE VIEW ───────────────────────────────────────────────────────────────
 function TreeView({ tool, onHome }) {
-  const { node, isResult, riskFlag, docWarn, steps, answer, choose, back, reset } = useTree(tool.tree);
+  const { node, isResult, riskFlag, docWarn, isAmend, steps, answer, choose, back, reset } = useTree(tool.tree);
   const progress = Math.min(Math.round(((steps-1)/tool.maxSteps)*100),95);
   const cfg = isResult ? (TEAM_CONFIG[node.team]||TEAM_CONFIG.resolve) : null;
 
@@ -553,7 +605,7 @@ function TreeView({ tool, onHome }) {
                 ))}
               </ul>
             </div>
-            {tool.id === "routing" && <TurnaroundPanel team={node.team} />}
+            {tool.id === "routing" && <TurnaroundPanel team={node.team} isAmend={isAmend} />}
             <div style={{ fontSize:12, color:TEXT_MUTED, fontWeight:300, marginBottom:22 }}>{steps-1} question{steps!==2?"s":""} answered</div>
           </>
         )}
@@ -952,11 +1004,22 @@ function OBTurnaroundView() {
   const rushColor = (r) => r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
   const valColor  = (v) => !v || v==="TOA" ? "#3A3A50" : TEXT_SECONDARY;
   const valWeight = (v) => !v || v==="TOA" ? 300 : 600;
+  const effColor  = (v) => !v || v==="TOA" ? "#2A2A3A" : "#5A5A7A";
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:0 }}>
-      <p style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7, marginBottom:14 }}>
-        Working days from brief sign-off to first draft. Up to 3 revision rounds are included in all standard timings. TOA = Timeline On Application — requires bespoke scoping before work begins.
+      <p style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7, marginBottom:10 }}>
+        Each cell shows lead time (days) and production effort (hours). Use effort for booking and estimates. Set-up time is additional: Simple +3 hrs · Standard +4 hrs · Complex +6 hrs.
       </p>
+      <div style={{ display:"flex", gap:10, marginBottom:14, flexWrap:"wrap" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:5 }}>
+          <div style={{ width:6, height:6, borderRadius:"50%", background:TEXT_SECONDARY }}/>
+          <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Top line = lead time (days)</span>
+        </div>
+        <div style={{ display:"flex", alignItems:"center", gap:5 }}>
+          <div style={{ width:6, height:6, borderRadius:"50%", background:"#5A5A7A" }}/>
+          <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Bottom line = production effort (hrs)</span>
+        </div>
+      </div>
       {/* Category tabs */}
       <div style={{ display:"flex", gap:6, marginBottom:14, flexWrap:"wrap" }}>
         {TURNAROUND_DATA.map((c,i) => (
@@ -974,18 +1037,24 @@ function OBTurnaroundView() {
             <div style={{ fontSize:12, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{asset.name}</div>
             {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginTop:3, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
           </div>
-          {/* Header row */}
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 68px 72px 72px 90px", background:"#0E0E18" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 80px 84px 84px 80px", background:"#0E0E18" }}>
             {["Scope / Volume","Simple","Standard","Complex","Rush"].map(h=>(
               <div key={h} style={{ padding:"6px 10px", fontSize:10, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{h}</div>
             ))}
           </div>
           {asset.rows.map((row,ri) => (
-            <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 68px 72px 72px 90px", borderTop:`1px solid #1A1A28`, background: ri%2===0?"transparent":"#0C0C16" }}>
+            <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 80px 84px 84px 80px", borderTop:`1px solid #1A1A28`, background: ri%2===0?"transparent":"#0C0C16" }}>
               <div style={{ padding:"8px 10px", fontSize:13, color:TEXT_MUTED, lineHeight:1.4 }}>{row.scope}</div>
-              <div style={{ padding:"8px 10px", fontSize:13, color:valColor(row.simple),  fontWeight:valWeight(row.simple)  }}>{row.simple  || "—"}</div>
-              <div style={{ padding:"8px 10px", fontSize:13, color:valColor(row.standard),fontWeight:valWeight(row.standard)}}>{row.standard || "—"}</div>
-              <div style={{ padding:"8px 10px", fontSize:13, color:valColor(row.complex), fontWeight:valWeight(row.complex) }}>{row.complex  || "—"}</div>
+              {["simple","standard","complex"].map(k => {
+                const lead = row[k];
+                const eff  = row[`eff1${k.charAt(0).toUpperCase()+k.slice(1)}`];
+                return (
+                  <div key={k} style={{ padding:"8px 10px" }}>
+                    <div style={{ fontSize:13, color:valColor(lead), fontWeight:valWeight(lead), lineHeight:1.3 }}>{lead||"—"}</div>
+                    {lead && eff && eff!=="TOA" && <div style={{ fontSize:11, color:effColor(eff), fontWeight:300, lineHeight:1.3, marginTop:2 }}>{eff}</div>}
+                  </div>
+                );
+              })}
               <div style={{ padding:"8px 10px", fontSize:12, color:rushColor(row.rush), lineHeight:1.4 }}>{row.rush}</div>
             </div>
           ))}
@@ -1000,7 +1069,7 @@ function OBTurnaroundView() {
               <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Rush {label}</span>
             </div>
           ))}
-          <span style={{ fontSize:11, color:"#3A3A50", fontWeight:300 }}>· Print-ready uplift adds 1–4 working days for large format &amp; document output · Set-up time included within lead times</span>
+          <span style={{ fontSize:11, color:"#3A3A50", fontWeight:300 }}>· TOA = Timeline On Application — requires bespoke scoping · Print-ready uplift adds 1–4d for large format &amp; documents</span>
         </div>
       </div>
     </div>
