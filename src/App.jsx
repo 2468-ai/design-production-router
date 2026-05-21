@@ -248,6 +248,192 @@ const CAPACITY_TREE = {
   },
 };
 
+// ─── TURNAROUND TIMES ────────────────────────────────────────────────────────
+// Source: studio_taxonomy_operating_model_with_print_outputs.xlsx — Turnaround Matrix sheet
+// Times = working days from brief sign-off to first draft. Up to 3 revision rounds included.
+// TOA = Timeline On Application — requires bespoke scoping before work begins.
+const TURNAROUND_DATA = [
+  {
+    id:"documents", category:"Documents", icon:"⊡", color:ORANGE,
+    assets:[
+      {
+        name:"Multi-page document",
+        note:"Complex = Look & Feel creation only (up to 16pp). Pages 17+ continue at Standard rate.",
+        rows:[
+          { scope:"1–8 pages",           simple:"1.5d", standard:"2d",   complex:null,  rush:"Yes"          },
+          { scope:"9–16 pages",          simple:"2.5d", standard:"3d",   complex:null,  rush:"Case by case" },
+          { scope:"17–24 pages",         simple:"3d",   standard:"4d",   complex:null,  rush:"Case by case" },
+          { scope:"25–50 pages",         simple:"4.5d", standard:"6d",   complex:null,  rush:"Limited"      },
+          { scope:"51–100 pages",        simple:"7.5d", standard:"11d",  complex:null,  rush:"No"           },
+          { scope:"101+ pages",          simple:"TOA",  standard:"TOA",  complex:null,  rush:"No"           },
+          { scope:"Up to 16pp (L&F)",    simple:null,   standard:null,   complex:"5d",  rush:"Limited"      },
+        ]
+      }
+    ]
+  },
+  {
+    id:"presentation", category:"Presentations", icon:"▦", color:PURPLE,
+    assets:[
+      {
+        name:"PowerPoint / Slides",
+        rows:[
+          { scope:"1–10 slides",         simple:"1.5d", standard:"2d",  complex:"2.5d", rush:"Yes"          },
+          { scope:"11–25 slides",        simple:"2d",   standard:"3d",  complex:"4d",   rush:"Case by case" },
+          { scope:"26–50 slides",        simple:"3.5d", standard:"5d",  complex:"6d",   rush:"Limited"      },
+          { scope:"51+ slides",          simple:null,   standard:null,  complex:"TOA",  rush:"No"           },
+        ]
+      }
+    ]
+  },
+  {
+    id:"video", category:"Video", icon:"▶", color:TEAL,
+    assets:[
+      {
+        name:"Video Build",
+        note:"Simple = supplied footage, basic cut. Standard = brand-led with motion graphics. Complex = full production, heavy animation.",
+        rows:[
+          { scope:"Up to 15\"",          simple:"2d",   standard:"2.5d", complex:null,  rush:"Yes"          },
+          { scope:"Up to 30\"",          simple:"2.5d", standard:"3.5d", complex:null,  rush:"Yes"          },
+          { scope:"Up to 60\"",          simple:"3d",   standard:"4.5d", complex:"6d",  rush:"Case by case" },
+          { scope:"Up to 120\"",         simple:"3.5d", standard:"5.5d", complex:"7d",  rush:"Limited"      },
+          { scope:"Up to 240\"",         simple:"4.5d", standard:"7d",   complex:"8d",  rush:"No"           },
+          { scope:"Up to 300\"",         simple:"5.5d", standard:"7d",   complex:"10d", rush:"No"           },
+          { scope:"300\"+",              simple:"TOA",  standard:"TOA",  complex:"TOA", rush:"No"           },
+        ]
+      },
+      {
+        name:"Storyboard",
+        note:"Simple = rough frames with supplied script. Standard = polished frames with scene direction. Complex = animatic or full motion.",
+        rows:[
+          { scope:"Up to 15\"",          simple:"2d",   standard:null,  complex:null,  rush:"Yes"          },
+          { scope:"Up to 30\"",          simple:"2.5d", standard:"3d",  complex:"4d",  rush:"Yes"          },
+          { scope:"Up to 60\"",          simple:null,   standard:"4d",  complex:"4d",  rush:"Case by case" },
+          { scope:"Up to 120\"",         simple:null,   standard:"4d",  complex:"5d",  rush:"Limited"      },
+          { scope:"Up to 240\"",         simple:null,   standard:"5d",  complex:"5d",  rush:"Limited"      },
+          { scope:"Up to 300\"",         simple:null,   standard:"6d",  complex:"6d",  rush:"Limited"      },
+          { scope:"240\"+",              simple:"TOA",  standard:"TOA", complex:"TOA", rush:"No"           },
+        ]
+      }
+    ]
+  },
+  {
+    id:"digital", category:"Digital", icon:"◈", color:BLUE,
+    assets:[
+      {
+        name:"Web / Social Banner (Static)",
+        rows:[
+          { scope:"1–3 assets",          simple:"2.5d", standard:null,   complex:null,  rush:"Yes"          },
+          { scope:"4–8 assets",          simple:null,   standard:"3.5d", complex:null,  rush:"Yes"          },
+          { scope:"9+ assets",           simple:null,   standard:null,   complex:"5d",  rush:"Case by case" },
+        ]
+      },
+      {
+        name:"Key Visual",
+        note:"Single-asset scope. Multi-asset campaigns require separate scoping.",
+        rows:[
+          { scope:"Single asset",        simple:"2.5d", standard:"3.5d", complex:"TOA", rush:"Yes"          },
+        ]
+      },
+      {
+        name:"Email",
+        rows:[
+          { scope:"Single email",        simple:"2.5d", standard:"3.5d", complex:null,  rush:"Yes"          },
+          { scope:"Multi-variant",       simple:null,   standard:null,   complex:"TOA", rush:"No"           },
+        ]
+      },
+      {
+        name:"Infographic",
+        rows:[
+          { scope:"Single asset",        simple:"3.5d", standard:"4.5d", complex:"6d",  rush:"Case by case" },
+        ]
+      }
+    ]
+  },
+  {
+    id:"event", category:"Event & Print", icon:"⊞", color:AMBER,
+    assets:[
+      {
+        name:"Large Format Print",
+        note:"Lead times are to print-ready artwork. Includes bleed, safe area and CMYK setup. Simple = adapt existing. Standard = new layout. Complex = custom or non-standard format.",
+        rows:[
+          { scope:"Single panel",        simple:"1.5d", standard:"2.5d", complex:"4d",  rush:"Yes"          },
+          { scope:"2–5 panels (suite)",  simple:"3d",   standard:"4.5d", complex:null,  rush:"Limited"      },
+        ]
+      },
+      {
+        name:"Event Screen Graphics",
+        note:"9+ screens or animation is TOA — requires bespoke scoping.",
+        rows:[
+          { scope:"1–3 screens",         simple:"1.5d", standard:"2.5d", complex:null,  rush:"Yes"          },
+          { scope:"4–8 screens",         simple:"2.5d", standard:"3.5d", complex:null,  rush:"Case by case" },
+          { scope:"9+ screens",          simple:"TOA",  standard:"TOA",  complex:null,  rush:"No"           },
+        ]
+      }
+    ]
+  }
+];
+
+function TurnaroundPanel({ team }) {
+  const excluded = ["brandstop","process","stop"];
+  if (!team || excluded.includes(team)) return null;
+  const [open, setOpen] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const cat = TURNAROUND_DATA[activeIdx];
+  const rushColor = (r) => !r ? TEXT_MUTED : r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
+  const valColor  = (v) => !v || v==="TOA" ? "#4A4A6A" : TEXT_SECONDARY;
+  const valWeight = (v) => !v || v==="TOA" ? 300 : 500;
+  return (
+    <div style={{ marginBottom:16 }}>
+      <button onClick={() => setOpen(o => !o)}
+        style={{ width:"100%", background:BG, border:`1px solid ${BORDER}`, borderRadius:open?"10px 10px 0 0":10, padding:"12px 16px", cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", justifyContent:"space-between", transition:"border-color 0.2s, border-radius 0.1s" }}
+        onMouseEnter={e=>{ if(!open) e.currentTarget.style.borderColor=BLUE; }}
+        onMouseLeave={e=>{ if(!open) e.currentTarget.style.borderColor=BORDER; }}>
+        <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+          <span style={{ fontSize:13, color:BLUE }}>⏱</span>
+          <span style={{ fontSize:12, color:TEXT_MUTED, fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase" }}>Turnaround reference</span>
+        </div>
+        <span style={{ fontSize:14, color:TEXT_MUTED, display:"inline-block", transform:open?"rotate(90deg)":"rotate(0deg)", transition:"transform 0.2s" }}>›</span>
+      </button>
+      {open && (
+        <div style={{ background:BG, border:`1px solid ${BORDER}`, borderTop:"none", borderRadius:"0 0 10px 10px", overflow:"hidden" }}>
+          <div style={{ display:"flex", gap:5, padding:"8px 12px", borderBottom:`1px solid #1E1E2E`, overflowX:"auto" }}>
+            {TURNAROUND_DATA.map((c,i) => (
+              <button key={i} onClick={()=>setActiveIdx(i)}
+                style={{ padding:"5px 11px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:6, cursor:"pointer", fontFamily:FONT, whiteSpace:"nowrap", display:"flex", alignItems:"center", gap:5, flexShrink:0, transition:"all 0.15s" }}>
+                <span style={{ fontSize:11, color:i===activeIdx?c.color:TEXT_MUTED }}>{c.icon}</span>
+                <span style={{ fontSize:11, color:i===activeIdx?c.color:TEXT_MUTED, fontWeight:i===activeIdx?700:400 }}>{c.category}</span>
+              </button>
+            ))}
+          </div>
+          {cat.assets.map((asset,ai) => (
+            <div key={ai} style={{ padding:"12px 14px", borderBottom:ai<cat.assets.length-1?`1px solid #1A1A28`:"none" }}>
+              <div style={{ fontSize:11, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:asset.note?3:8 }}>{asset.name}</div>
+              {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginBottom:8, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 56px 68px 68px 90px", gap:0, marginBottom:2 }}>
+                {["Scope","Simple","Std","Complex","Rush"].map(h=>(
+                  <div key={h} style={{ fontSize:9, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", padding:"3px 5px" }}>{h}</div>
+                ))}
+              </div>
+              {asset.rows.map((row,ri) => (
+                <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 56px 68px 68px 90px", gap:0, borderTop:`1px solid #1A1A28` }}>
+                  <div style={{ fontSize:12, color:TEXT_MUTED, padding:"6px 5px" }}>{row.scope}</div>
+                  <div style={{ fontSize:12, color:valColor(row.simple),  padding:"6px 5px", fontWeight:valWeight(row.simple)  }}>{row.simple||"—"}</div>
+                  <div style={{ fontSize:12, color:valColor(row.standard),padding:"6px 5px", fontWeight:valWeight(row.standard)}}>{row.standard||"—"}</div>
+                  <div style={{ fontSize:12, color:valColor(row.complex), padding:"6px 5px", fontWeight:valWeight(row.complex) }}>{row.complex||"—"}</div>
+                  <div style={{ fontSize:11, padding:"6px 5px", lineHeight:1.4, color:rushColor(row.rush) }}>{row.rush}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+          <div style={{ padding:"8px 14px", borderTop:`1px solid #1E1E2E` }}>
+            <span style={{ fontSize:10, color:"#3A3A50", fontWeight:300 }}>Working days from brief sign-off to first draft · 3 revision rounds included · TOA = bespoke scoping required · Rush subject to studio capacity</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── TOOLS ───────────────────────────────────────────────────────────────────
 const TOOLS = [
   { id:"routing",   type:"tree",      title:"Brief & Work Routing",    subtitle:"UK or Chennai?",                icon:"⇄", desc:"Route a new brief, project phase or client amendment to the right studio.", tree:ROUTING_TREE,    maxSteps:7 },
@@ -367,6 +553,7 @@ function TreeView({ tool, onHome }) {
                 ))}
               </ul>
             </div>
+            {tool.id === "routing" && <TurnaroundPanel team={node.team} />}
             <div style={{ fontSize:12, color:TEXT_MUTED, fontWeight:300, marginBottom:22 }}>{steps-1} question{steps!==2?"s":""} answered</div>
           </>
         )}
@@ -749,7 +936,76 @@ const ONBOARDING_SECTIONS = [
       },
     ],
   },
+  {
+    id: "turnaround",
+    icon: "⏱",
+    title: "Turnaround Times",
+    color: BLUE,
+    isTurnaround: true,
+    blocks: [],
+  },
 ];
+
+function OBTurnaroundView() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const cat = TURNAROUND_DATA[activeIdx];
+  const rushColor = (r) => r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
+  const valColor  = (v) => !v || v==="TOA" ? "#3A3A50" : TEXT_SECONDARY;
+  const valWeight = (v) => !v || v==="TOA" ? 300 : 600;
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:0 }}>
+      <p style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7, marginBottom:14 }}>
+        Working days from brief sign-off to first draft. Up to 3 revision rounds are included in all standard timings. TOA = Timeline On Application — requires bespoke scoping before work begins.
+      </p>
+      {/* Category tabs */}
+      <div style={{ display:"flex", gap:6, marginBottom:14, flexWrap:"wrap" }}>
+        {TURNAROUND_DATA.map((c,i) => (
+          <button key={i} onClick={()=>setActiveIdx(i)}
+            style={{ padding:"6px 13px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", gap:6, transition:"all 0.15s" }}>
+            <span style={{ fontSize:12, color:i===activeIdx?c.color:TEXT_MUTED }}>{c.icon}</span>
+            <span style={{ fontSize:12, color:i===activeIdx?c.color:TEXT_MUTED, fontWeight:i===activeIdx?700:400 }}>{c.category}</span>
+          </button>
+        ))}
+      </div>
+      {/* Asset tables */}
+      {cat.assets.map((asset,ai) => (
+        <div key={ai} style={{ border:`1px solid ${BORDER}`, borderRadius:10, marginBottom:10, overflow:"hidden" }}>
+          <div style={{ background:BG, padding:"10px 14px", borderBottom:`1px solid ${BORDER}` }}>
+            <div style={{ fontSize:12, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{asset.name}</div>
+            {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginTop:3, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
+          </div>
+          {/* Header row */}
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 68px 72px 72px 90px", background:"#0E0E18" }}>
+            {["Scope / Volume","Simple","Standard","Complex","Rush"].map(h=>(
+              <div key={h} style={{ padding:"6px 10px", fontSize:10, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{h}</div>
+            ))}
+          </div>
+          {asset.rows.map((row,ri) => (
+            <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 68px 72px 72px 90px", borderTop:`1px solid #1A1A28`, background: ri%2===0?"transparent":"#0C0C16" }}>
+              <div style={{ padding:"8px 10px", fontSize:13, color:TEXT_MUTED, lineHeight:1.4 }}>{row.scope}</div>
+              <div style={{ padding:"8px 10px", fontSize:13, color:valColor(row.simple),  fontWeight:valWeight(row.simple)  }}>{row.simple  || "—"}</div>
+              <div style={{ padding:"8px 10px", fontSize:13, color:valColor(row.standard),fontWeight:valWeight(row.standard)}}>{row.standard || "—"}</div>
+              <div style={{ padding:"8px 10px", fontSize:13, color:valColor(row.complex), fontWeight:valWeight(row.complex) }}>{row.complex  || "—"}</div>
+              <div style={{ padding:"8px 10px", fontSize:12, color:rushColor(row.rush), lineHeight:1.4 }}>{row.rush}</div>
+            </div>
+          ))}
+        </div>
+      ))}
+      {/* Legend */}
+      <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:8, padding:"10px 14px", marginTop:4 }}>
+        <div style={{ display:"flex", gap:16, flexWrap:"wrap" }}>
+          {[["Yes",TEAL],["Case by case",AMBER],["No","#EF4444"]].map(([label,color])=>(
+            <div key={label} style={{ display:"flex", alignItems:"center", gap:5 }}>
+              <div style={{ width:8, height:8, borderRadius:"50%", background:color, flexShrink:0 }}/>
+              <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Rush {label}</span>
+            </div>
+          ))}
+          <span style={{ fontSize:11, color:"#3A3A50", fontWeight:300 }}>· Print-ready uplift adds 1–4 working days for large format &amp; document output · Set-up time included within lead times</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function OnboardingView({ onHome }) {
   const [activeSection, setActiveSection] = useState(0);
@@ -788,22 +1044,26 @@ function OnboardingView({ onHome }) {
           <h3 style={{ fontSize:"clamp(18px,3vw,22px)", color:TEXT_PRIMARY, fontWeight:900, margin:0, letterSpacing:"-0.01em" }}>{section.title}</h3>
         </div>
 
-        <div style={{ display:"flex", flexDirection:"column", gap:22 }}>
-          {section.blocks.map((block, bi) => (
-            <div key={bi}>
-              <div style={{ fontSize:13, color:block.labelColor, letterSpacing:"0.12em", textTransform:"uppercase", fontWeight:700, marginBottom:12 }}>{block.label}</div>
-              <ul style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:8 }}>
-                {block.points.map((point, pi) => (
-                  <li key={pi} style={{ fontSize:15, color:TEXT_MUTED, paddingLeft:20, position:"relative", lineHeight:1.7, fontWeight:400 }}>
-                    <span style={{ position:"absolute", left:0, color:section.color, fontSize:11, top:4, fontWeight:700 }}>→</span>
-                    {point}
-                  </li>
-                ))}
-              </ul>
-              {bi < section.blocks.length - 1 && <div style={{ height:1, background:BORDER, marginTop:22 }} />}
-            </div>
-          ))}
-        </div>
+        {section.isTurnaround ? (
+          <OBTurnaroundView />
+        ) : (
+          <div style={{ display:"flex", flexDirection:"column", gap:22 }}>
+            {section.blocks.map((block, bi) => (
+              <div key={bi}>
+                <div style={{ fontSize:13, color:block.labelColor, letterSpacing:"0.12em", textTransform:"uppercase", fontWeight:700, marginBottom:12 }}>{block.label}</div>
+                <ul style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:8 }}>
+                  {block.points.map((point, pi) => (
+                    <li key={pi} style={{ fontSize:15, color:TEXT_MUTED, paddingLeft:20, position:"relative", lineHeight:1.7, fontWeight:400 }}>
+                      <span style={{ position:"absolute", left:0, color:section.color, fontSize:11, top:4, fontWeight:700 }}>→</span>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                {bi < section.blocks.length - 1 && <div style={{ height:1, background:BORDER, marginTop:22 }} />}
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Prev / Next nav */}
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:32, paddingTop:20, borderTop:`1px solid ${BORDER}` }}>
