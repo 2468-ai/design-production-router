@@ -999,82 +999,240 @@ const ONBOARDING_SECTIONS = [
 ];
 
 function OBTurnaroundView() {
+  const [view, setView] = useState("howto");
   const [activeIdx, setActiveIdx] = useState(0);
   const cat = TURNAROUND_DATA[activeIdx];
   const rushColor = (r) => r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
   const valColor  = (v) => !v || v==="TOA" ? "#3A3A50" : TEXT_SECONDARY;
   const valWeight = (v) => !v || v==="TOA" ? 300 : 600;
   const effColor  = (v) => !v || v==="TOA" ? "#2A2A3A" : "#5A5A7A";
+
+  const PRINCIPLES = [
+    {
+      num:"1", title:"Build timings in components",
+      body:"Do not look for one row that perfectly matches a request. Most projects are made up of multiple deliverables or production stages. Select the base creation effort, any additional versions or outputs, storyboard or production stages where required, and any print or production uplift.",
+    },
+    {
+      num:"2", title:"Use complexity judgement",
+      body:"Simple, Standard and Complex are guides — not fixed categories. Consider stakeholder count, amount of bespoke design, content quality, number of versions, animation complexity, production risk, and turnaround pressure. Not every 32-page brochure is Complex. Not every short video is Simple.",
+    },
+    {
+      num:"3", title:"The matrix is guidance, not fixed law",
+      body:"The matrix provides planning guidance, capacity guidance and expectation management. PM and studio judgement should still be applied. Timings may flex based on briefing quality, supplied assets, review speed, approval structure, and current studio capacity.",
+    },
+  ];
+
+  const EXAMPLES = [
+    {
+      title:"Multi-page document",
+      scenario:"New 32-page brochure — bespoke design, print-ready output required.",
+      color:ORANGE, icon:"⊡",
+      steps:[
+        { step:"1", action:"Select Look & Feel creation", detail:"Choose Up to 16pp — Standard or Complex. This covers the initial creative approach, design system, layout style and key pages." },
+        { step:"2", action:"Add remaining pages", detail:"Then select 17–32pp at Simple or Standard, depending on how repetitive the remaining pages are, content consistency and number of layouts required." },
+        { step:"3", action:"Add print production uplift", detail:"If print-ready artwork is required, apply the print production uplift. This covers bleed setup, export QA, artwork checks and print specifications." },
+      ]
+    },
+    {
+      title:"Video with cutdown and storyboard",
+      scenario:"2-minute video + 15-second cutdown. Storyboard required upfront.",
+      color:TEAL, icon:"▶",
+      steps:[
+        { step:"1", action:"Select main video build", detail:"Choose Up to 240" — Standard or Complex, depending on animation level, graphics, subtitles, motion complexity and outputs." },
+        { step:"2", action:"Add storyboard", detail:"Choose Up to 240" Storyboard — Standard, as storyboard creation is required upfront before production begins." },
+        { step:"3", action:"Add cutdown", detail:"Choose Up to 15" Cutdown — Simple or Standard, depending on platform formatting, re-edit complexity and graphics or versioning required." },
+      ]
+    },
+  ];
+
+  const RUSH_RULES = [
+    { label:"Yes",           color:TEAL,      bg:"#0A2020", border:"#0F6060", desc:"Rush is available. Still subject to studio confirmation and current capacity." },
+    { label:"Case by case",  color:"#F59E0B", bg:"#1A1000", border:"#5A3800", desc:"Rush may be possible — studio must approve before committing. Raise with the PM lead before promising a client." },
+    { label:"Limited",       color:"#F59E0B", bg:"#1A1000", border:"#5A3800", desc:"Rush is occasionally possible but not reliable. Treat as unavailable unless the studio confirms otherwise." },
+    { label:"No",            color:"#EF4444", bg:"#1A0808", border:"#5A1010", desc:"Rush is not available for this scope and complexity. Do not commit a rush delivery to the client." },
+  ];
+
+  const REMINDERS = [
+    { title:"Revision timings assume one consolidated round", body:"Revision timings are based on one consolidated set of feedback. Fragmented or rolling feedback may require re-estimation and revised delivery timings." },
+    { title:"Timings assume supplied content", body:"All lead times and effort estimates assume supplied copy, imagery and assets. They also assume an agreed brief, a named approver, and consolidated feedback. If any of these are missing at brief stage, add contingency before committing to a delivery date." },
+    { title:"Re-estimation triggers", body:"Projects may require bespoke scoping if scope changes significantly, additional versions are added, content arrives late, stakeholder groups increase, localisation is required, or complexity increases during production." },
+  ];
+
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:0 }}>
-      <p style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7, marginBottom:10 }}>
-        Each cell shows lead time (days) and production effort (hours). Use effort for booking and estimates. Set-up time is additional: Simple +3 hrs · Standard +4 hrs · Complex +6 hrs.
-      </p>
-      <div style={{ display:"flex", gap:10, marginBottom:14, flexWrap:"wrap" }}>
-        <div style={{ display:"flex", alignItems:"center", gap:5 }}>
-          <div style={{ width:6, height:6, borderRadius:"50%", background:TEXT_SECONDARY }}/>
-          <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Top line = lead time (days)</span>
-        </div>
-        <div style={{ display:"flex", alignItems:"center", gap:5 }}>
-          <div style={{ width:6, height:6, borderRadius:"50%", background:"#5A5A7A" }}/>
-          <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Bottom line = production effort (hrs)</span>
-        </div>
-      </div>
-      {/* Category tabs */}
-      <div style={{ display:"flex", gap:6, marginBottom:14, flexWrap:"wrap" }}>
-        {TURNAROUND_DATA.map((c,i) => (
-          <button key={i} onClick={()=>setActiveIdx(i)}
-            style={{ padding:"6px 13px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", gap:6, transition:"all 0.15s" }}>
-            <span style={{ fontSize:12, color:i===activeIdx?c.color:TEXT_MUTED }}>{c.icon}</span>
-            <span style={{ fontSize:12, color:i===activeIdx?c.color:TEXT_MUTED, fontWeight:i===activeIdx?700:400 }}>{c.category}</span>
+      {/* View toggle */}
+      <div style={{ display:"flex", gap:8, marginBottom:20 }}>
+        {[["howto","How to use"],["matrix","Matrix"]].map(([id,label])=>(
+          <button key={id} onClick={()=>setView(id)}
+            style={{ flex:1, padding:"10px 14px", background:view===id?BG:"transparent", border:`1px solid ${view===id?BLUE:BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, fontSize:13, color:view===id?BLUE:TEXT_MUTED, fontWeight:view===id?700:400, transition:"all 0.15s" }}>
+            {label}
           </button>
         ))}
       </div>
-      {/* Asset tables */}
-      {cat.assets.map((asset,ai) => (
-        <div key={ai} style={{ border:`1px solid ${BORDER}`, borderRadius:10, marginBottom:10, overflow:"hidden" }}>
-          <div style={{ background:BG, padding:"10px 14px", borderBottom:`1px solid ${BORDER}` }}>
-            <div style={{ fontSize:12, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{asset.name}</div>
-            {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginTop:3, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
+
+      {view==="howto" ? (
+        <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+          {/* Intro */}
+          <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:10, padding:"16px 18px" }}>
+            <div style={{ fontSize:12, color:BLUE, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:10 }}>Think of it as a shopping list</div>
+            <p style={{ fontSize:14, color:TEXT_MUTED, margin:0, lineHeight:1.8, fontWeight:300 }}>
+              The matrix is a modular scoping tool — not a fixed rate card. Select the relevant components for the actual brief, combine timings based on what is being produced, and apply judgement based on complexity and delivery requirements. The goal is to create realistic delivery plans, protect studio capacity, and set consistent expectations.
+            </p>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 80px 84px 84px 80px", background:"#0E0E18" }}>
-            {["Scope / Volume","Simple","Standard","Complex","Rush"].map(h=>(
-              <div key={h} style={{ padding:"6px 10px", fontSize:10, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{h}</div>
+
+          {/* Core principles */}
+          <div>
+            <div style={{ fontSize:11, color:TEXT_MUTED, fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:10 }}>Core principles</div>
+            <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+              {PRINCIPLES.map((p,i)=>(
+                <div key={i} style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:10, padding:"14px 18px", display:"flex", gap:14, alignItems:"flex-start" }}>
+                  <div style={{ width:24, height:24, borderRadius:6, background:"#13101E", border:`1px solid ${BORDER}`, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                    <span style={{ fontSize:11, color:ORANGE, fontWeight:800 }}>{p.num}</span>
+                  </div>
+                  <div>
+                    <div style={{ fontSize:13, color:TEXT_SECONDARY, fontWeight:600, marginBottom:5 }}>{p.title}</div>
+                    <div style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7 }}>{p.body}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Worked examples */}
+          <div>
+            <div style={{ fontSize:11, color:TEXT_MUTED, fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:10 }}>Worked examples</div>
+            <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+              {EXAMPLES.map((ex,ei)=>(
+                <div key={ei} style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:10, overflow:"hidden" }}>
+                  <div style={{ padding:"12px 18px", borderBottom:`1px solid ${BORDER}`, display:"flex", alignItems:"center", gap:10 }}>
+                    <span style={{ fontSize:14, color:ex.color }}>{ex.icon}</span>
+                    <div>
+                      <div style={{ fontSize:13, color:ex.color, fontWeight:700 }}>{ex.title}</div>
+                      <div style={{ fontSize:12, color:TEXT_MUTED, fontWeight:300, marginTop:2 }}>{ex.scenario}</div>
+                    </div>
+                  </div>
+                  {ex.steps.map((s,si)=>(
+                    <div key={si} style={{ padding:"12px 18px", borderBottom:si<ex.steps.length-1?`1px solid #1A1A28`:"none", display:"flex", gap:14, alignItems:"flex-start" }}>
+                      <div style={{ width:22, height:22, borderRadius:"50%", background:"#13101E", border:`1px solid ${ex.color}40`, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:1 }}>
+                        <span style={{ fontSize:10, color:ex.color, fontWeight:700 }}>{s.step}</span>
+                      </div>
+                      <div>
+                        <div style={{ fontSize:13, color:TEXT_SECONDARY, fontWeight:600, marginBottom:3 }}>{s.action}</div>
+                        <div style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.6 }}>{s.detail}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Rush rules */}
+          <div>
+            <div style={{ fontSize:11, color:TEXT_MUTED, fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:10 }}>Rush availability — what the column means</div>
+            <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+              {RUSH_RULES.map((r,ri)=>(
+                <div key={ri} style={{ background:r.bg, border:`1px solid ${r.border}`, borderRadius:8, padding:"10px 14px", display:"flex", gap:12, alignItems:"flex-start" }}>
+                  <span style={{ fontSize:12, color:r.color, fontWeight:700, minWidth:100, paddingTop:1 }}>{r.label}</span>
+                  <span style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.6 }}>{r.desc}</span>
+                </div>
+              ))}
+              <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:8, padding:"10px 14px" }}>
+                <span style={{ fontSize:12, color:TEXT_MUTED, fontWeight:300, lineHeight:1.6 }}>All rush requests are subject to studio approval and available capacity — even where marked Yes. Never commit a rush delivery to a client before the studio has confirmed it can be accommodated.</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Important reminders */}
+          <div>
+            <div style={{ fontSize:11, color:TEXT_MUTED, fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:10 }}>Important reminders</div>
+            <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+              {REMINDERS.map((r,ri)=>(
+                <div key={ri} style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:8, padding:"12px 16px" }}>
+                  <div style={{ fontSize:13, color:TEXT_SECONDARY, fontWeight:600, marginBottom:4 }}>{r.title}</div>
+                  <div style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7 }}>{r.body}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button onClick={()=>setView("matrix")}
+            style={{ padding:"11px", background:"transparent", border:`1px solid ${BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, fontSize:13, color:TEXT_MUTED, fontWeight:500, transition:"all 0.15s", marginTop:4 }}
+            onMouseEnter={e=>{e.target.style.borderColor=BLUE;e.target.style.color=BLUE;}}
+            onMouseLeave={e=>{e.target.style.borderColor=BORDER;e.target.style.color=TEXT_MUTED;}}>
+            Open the matrix →
+          </button>
+        </div>
+      ) : (
+        <div style={{ display:"flex", flexDirection:"column", gap:0 }}>
+          <p style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7, marginBottom:10 }}>
+            Each cell shows lead time (days) and production effort (hours). Use effort for booking and estimates. Set-up time is additional: Simple +3 hrs · Standard +4 hrs · Complex +6 hrs.
+          </p>
+          <div style={{ display:"flex", gap:10, marginBottom:14, flexWrap:"wrap" }}>
+            <div style={{ display:"flex", alignItems:"center", gap:5 }}>
+              <div style={{ width:6, height:6, borderRadius:"50%", background:TEXT_SECONDARY }}/>
+              <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Top line = lead time (days)</span>
+            </div>
+            <div style={{ display:"flex", alignItems:"center", gap:5 }}>
+              <div style={{ width:6, height:6, borderRadius:"50%", background:"#5A5A7A" }}/>
+              <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Bottom line = production effort (hrs)</span>
+            </div>
+          </div>
+          <div style={{ display:"flex", gap:6, marginBottom:14, flexWrap:"wrap" }}>
+            {TURNAROUND_DATA.map((c,i) => (
+              <button key={i} onClick={()=>setActiveIdx(i)}
+                style={{ padding:"6px 13px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", gap:6, transition:"all 0.15s" }}>
+                <span style={{ fontSize:12, color:i===activeIdx?c.color:TEXT_MUTED }}>{c.icon}</span>
+                <span style={{ fontSize:12, color:i===activeIdx?c.color:TEXT_MUTED, fontWeight:i===activeIdx?700:400 }}>{c.category}</span>
+              </button>
             ))}
           </div>
-          {asset.rows.map((row,ri) => (
-            <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 80px 84px 84px 80px", borderTop:`1px solid #1A1A28`, background: ri%2===0?"transparent":"#0C0C16" }}>
-              <div style={{ padding:"8px 10px", fontSize:13, color:TEXT_MUTED, lineHeight:1.4 }}>{row.scope}</div>
-              {["simple","standard","complex"].map(k => {
-                const lead = row[k];
-                const eff  = row[`eff1${k.charAt(0).toUpperCase()+k.slice(1)}`];
-                return (
-                  <div key={k} style={{ padding:"8px 10px" }}>
-                    <div style={{ fontSize:13, color:valColor(lead), fontWeight:valWeight(lead), lineHeight:1.3 }}>{lead||"—"}</div>
-                    {lead && eff && eff!=="TOA" && <div style={{ fontSize:11, color:effColor(eff), fontWeight:300, lineHeight:1.3, marginTop:2 }}>{eff}</div>}
-                  </div>
-                );
-              })}
-              <div style={{ padding:"8px 10px", fontSize:12, color:rushColor(row.rush), lineHeight:1.4 }}>{row.rush}</div>
+          {cat.assets.map((asset,ai) => (
+            <div key={ai} style={{ border:`1px solid ${BORDER}`, borderRadius:10, marginBottom:10, overflow:"hidden" }}>
+              <div style={{ background:BG, padding:"10px 14px", borderBottom:`1px solid ${BORDER}` }}>
+                <div style={{ fontSize:12, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{asset.name}</div>
+                {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginTop:3, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
+              </div>
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 80px 84px 84px 80px", background:"#0E0E18" }}>
+                {["Scope / Volume","Simple","Standard","Complex","Rush"].map(h=>(
+                  <div key={h} style={{ padding:"6px 10px", fontSize:10, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{h}</div>
+                ))}
+              </div>
+              {asset.rows.map((row,ri) => (
+                <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 80px 84px 84px 80px", borderTop:`1px solid #1A1A28`, background: ri%2===0?"transparent":"#0C0C16" }}>
+                  <div style={{ padding:"8px 10px", fontSize:13, color:TEXT_MUTED, lineHeight:1.4 }}>{row.scope}</div>
+                  {["simple","standard","complex"].map(k => {
+                    const lead = row[k];
+                    const eff  = row[`eff1${k.charAt(0).toUpperCase()+k.slice(1)}`];
+                    return (
+                      <div key={k} style={{ padding:"8px 10px" }}>
+                        <div style={{ fontSize:13, color:valColor(lead), fontWeight:valWeight(lead), lineHeight:1.3 }}>{lead||"—"}</div>
+                        {lead && eff && eff!=="TOA" && <div style={{ fontSize:11, color:effColor(eff), fontWeight:300, lineHeight:1.3, marginTop:2 }}>{eff}</div>}
+                      </div>
+                    );
+                  })}
+                  <div style={{ padding:"8px 10px", fontSize:12, color:rushColor(row.rush), lineHeight:1.4 }}>{row.rush}</div>
+                </div>
+              ))}
             </div>
           ))}
-        </div>
-      ))}
-      {/* Legend */}
-      <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:8, padding:"10px 14px", marginTop:4 }}>
-        <div style={{ display:"flex", gap:16, flexWrap:"wrap" }}>
-          {[["Yes",TEAL],["Case by case",AMBER],["No","#EF4444"]].map(([label,color])=>(
-            <div key={label} style={{ display:"flex", alignItems:"center", gap:5 }}>
-              <div style={{ width:8, height:8, borderRadius:"50%", background:color, flexShrink:0 }}/>
-              <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Rush {label}</span>
+          <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:8, padding:"10px 14px", marginTop:4 }}>
+            <div style={{ display:"flex", gap:16, flexWrap:"wrap" }}>
+              {[["Yes",TEAL],["Case by case / Limited",AMBER],["No","#EF4444"]].map(([label,color])=>(
+                <div key={label} style={{ display:"flex", alignItems:"center", gap:5 }}>
+                  <div style={{ width:8, height:8, borderRadius:"50%", background:color, flexShrink:0 }}/>
+                  <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Rush: {label}</span>
+                </div>
+              ))}
+              <span style={{ fontSize:11, color:"#3A3A50", fontWeight:300 }}>· TOA = requires bespoke scoping · Print-ready uplift adds 1–4d for large format &amp; documents</span>
             </div>
-          ))}
-          <span style={{ fontSize:11, color:"#3A3A50", fontWeight:300 }}>· TOA = Timeline On Application — requires bespoke scoping · Print-ready uplift adds 1–4d for large format &amp; documents</span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
+
 
 function OnboardingView({ onHome }) {
   const [activeSection, setActiveSection] = useState(0);
