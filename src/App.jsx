@@ -1038,9 +1038,9 @@ function OBTurnaroundView() {
       scenario:"2-minute video + 15-second cutdown. Storyboard required upfront.",
       color:TEAL, icon:"▶",
       steps:[
-        { step:"1", action:"Select main video build", detail:"Choose Up to 240" — Standard or Complex, depending on animation level, graphics, subtitles, motion complexity and outputs." },
-        { step:"2", action:"Add storyboard", detail:"Choose Up to 240" Storyboard — Standard, as storyboard creation is required upfront before production begins." },
-        { step:"3", action:"Add cutdown", detail:"Choose Up to 15" Cutdown — Simple or Standard, depending on platform formatting, re-edit complexity and graphics or versioning required." },
+        { step:"1", action:"Select main video build", detail:"Choose Up to 240\" — Standard or Complex, depending on animation level, graphics, subtitles, motion complexity and outputs." },
+        { step:"2", action:"Add storyboard", detail:"Choose Up to 240\" Storyboard — Standard, as storyboard creation is required upfront before production begins." },
+        { step:"3", action:"Add cutdown", detail:"Choose Up to 15\" Cutdown — Simple or Standard, depending on platform formatting, re-edit complexity and graphics or versioning required." },
       ]
     },
   ];
