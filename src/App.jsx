@@ -426,7 +426,7 @@ function TurnaroundPanel({ team, isAmend }) {
   const CX_COLOR  = { Simple: TEAL, Standard: ORANGE, Complex: PURPLE };
   const rushColor = (r) => r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
   const isTOA     = (v) => !v || v==="TOA" || v==="N/A";
-  const valColor  = (v) => isTOA(v) ? "#3A3A50" : TEXT_SECONDARY;
+  const valColor  = (v) => isTOA(v) ? "#6060A0" : TEXT_SECONDARY;
 
   const accentColor = isAmend ? AMBER : BLUE;
   const label       = isAmend ? "Amendment effort / round" : "Lead time & effort";
@@ -469,11 +469,11 @@ function TurnaroundPanel({ team, isAmend }) {
           {cat.assets.map((asset,ai) => (
             <div key={ai} style={{ padding:"10px 14px", borderBottom:ai<cat.assets.length-1?"1px solid #1A1A28":"none" }}>
               <div style={{ fontSize:11, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:asset.note?3:8 }}>{asset.name}</div>
-              {asset.note && <div style={{ fontSize:10, color:"#3A3A50", marginBottom:8, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
+              {asset.note && <div style={{ fontSize:10, color:"#7070A0", marginBottom:8, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
               {/* Header */}
               <div style={{ display:"grid", gridTemplateColumns:"1fr 56px 60px 60px 60px 72px", gap:0 }}>
                 {["Scope","Cx",isAmend?"Rev effort":cat.hasPrint&&asset.rows[0]?.print?"Print-ready":"Lead","Effort","Revision","Rush"].map(h=>(
-                  <div key={h} style={{ fontSize:9, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", padding:"3px 4px" }}>{h}</div>
+                  <div key={h} style={{ fontSize:9, color:"#7070A0", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", padding:"3px 4px" }}>{h}</div>
                 ))}
               </div>
               {asset.rows.map((row,ri) => {
@@ -487,7 +487,7 @@ function TurnaroundPanel({ team, isAmend }) {
                       <span style={{ fontSize:10, color:CX_COLOR[row.cx]||TEXT_MUTED, fontWeight:600, background:CX_COLOR[row.cx]+"18", borderRadius:3, padding:"1px 4px" }}>{row.cx}</span>
                     </div>
                     <div style={{ fontSize:12, color:valColor(mainTime), padding:"5px 4px", fontWeight:isTOA(mainTime)?300:600 }}>{mainTime||"—"}</div>
-                    <div style={{ fontSize:11, color:isTOA(effVal)?"#3A3A50":"#6A6A8A", padding:"5px 4px", fontWeight:300 }}>{effVal||"—"}</div>
+                    <div style={{ fontSize:11, color:isTOA(effVal)?"#6060A0":"#8A8AAA", padding:"5px 4px", fontWeight:300 }}>{effVal||"—"}</div>
                     <div style={{ fontSize:11, color:valColor(revVal), padding:"5px 4px" }}>{revVal}</div>
                     <div style={{ fontSize:11, color:rushColor(row.rush), padding:"5px 4px", lineHeight:1.4 }}>{row.rush}</div>
                   </div>
@@ -496,7 +496,7 @@ function TurnaroundPanel({ team, isAmend }) {
             </div>
           ))}
           <div style={{ padding:"8px 14px", borderTop:"1px solid #1E1E2E" }}>
-            <span style={{ fontSize:10, color:"#3A3A50", fontWeight:300 }}>{footer}</span>
+            <span style={{ fontSize:10, color:"#7070A0", fontWeight:300 }}>{footer}</span>
           </div>
         </div>
       )}
@@ -1025,7 +1025,7 @@ function OBTurnaroundView() {
   const CX_COLOR  = { Simple: TEAL, Standard: ORANGE, Complex: PURPLE };
   const rushColor = (r) => r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
   const isTOA     = (v) => !v || v==="TOA" || v==="N/A";
-  const valColor  = (v) => isTOA(v) ? "#3A3A50" : TEXT_SECONDARY;
+  const valColor  = (v) => isTOA(v) ? "#6060A0" : TEXT_SECONDARY;
 
   const PRINCIPLES = [
     { num:"1", title:"Build timings in components",
@@ -1183,12 +1183,12 @@ function OBTurnaroundView() {
             <div key={ai} style={{ border:`1px solid ${BORDER}`, borderRadius:10, marginBottom:10, overflow:"hidden" }}>
               <div style={{ background:BG, padding:"10px 14px", borderBottom:`1px solid ${BORDER}` }}>
                 <div style={{ fontSize:12, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{asset.name}</div>
-                {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginTop:3, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
+                {asset.note && <div style={{ fontSize:11, color:"#7070A0", marginTop:3, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
               </div>
               {/* Header */}
               <div style={{ display:"grid", gridTemplateColumns:"1fr 70px 68px 68px 68px 70px", background:"#0E0E18" }}>
                 {["Scope","Complexity",asset.rows[0]?.print&&!asset.rows[0]?.lead?"Print-ready":"Lead time","Effort","Revision","Rush"].map(h=>(
-                  <div key={h} style={{ padding:"6px 8px", fontSize:10, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{h}</div>
+                  <div key={h} style={{ padding:"6px 8px", fontSize:10, color:"#7070A0", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{h}</div>
                 ))}
               </div>
               {asset.rows.map((row,ri)=>{
@@ -1201,9 +1201,9 @@ function OBTurnaroundView() {
                     </div>
                     <div style={{ padding:"8px 8px" }}>
                       <div style={{ fontSize:13, color:valColor(mainTime), fontWeight:isTOA(mainTime)?300:600 }}>{mainTime||"—"}</div>
-                      {row.print && row.lead && !isTOA(row.print) && <div style={{ fontSize:10, color:"#5A5A7A", fontWeight:300, marginTop:1 }}>{row.print} print-ready</div>}
+                      {row.print && row.lead && !isTOA(row.print) && <div style={{ fontSize:10, color:"#7878A0", fontWeight:300, marginTop:1 }}>{row.print} print-ready</div>}
                     </div>
-                    <div style={{ padding:"8px 8px", fontSize:12, color:isTOA(row.eff)?"#3A3A50":"#6A6A8A", fontWeight:300 }}>{row.eff||"—"}</div>
+                    <div style={{ padding:"8px 8px", fontSize:12, color:isTOA(row.eff)?"#6060A0":"#8A8AAA", fontWeight:300 }}>{row.eff||"—"}</div>
                     <div style={{ padding:"8px 8px", fontSize:12, color:valColor(row.rev) }}>{row.rev||"—"}</div>
                     <div style={{ padding:"8px 8px", fontSize:12, color:rushColor(row.rush) }}>{row.rush}</div>
                   </div>
@@ -1219,7 +1219,7 @@ function OBTurnaroundView() {
                   <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Rush: {label}</span>
                 </div>
               ))}
-              <span style={{ fontSize:11, color:"#3A3A50", fontWeight:300 }}>· TOA = requires bespoke scoping · All rush subject to studio capacity confirmation</span>
+              <span style={{ fontSize:11, color:"#7070A0", fontWeight:300 }}>· TOA = requires bespoke scoping · All rush subject to studio capacity confirmation</span>
             </div>
           </div>
         </div>
