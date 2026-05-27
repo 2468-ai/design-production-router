@@ -254,149 +254,190 @@ const CAPACITY_TREE = {
 // TOA = Timeline On Application — requires bespoke scoping before work begins.
 const TURNAROUND_DATA = [
   {
-    id:"documents", category:"Documents", icon:"⊡", color:ORANGE,
+    id:"documents", category:"Documents", icon:"⊡", color:ORANGE, hasPrint:true,
     assets:[
       {
         name:"Multi-page document",
         note:"Complex = Look & Feel creation only (up to 16pp). Pages 17+ continue at Standard rate.",
         rows:[
-          { scope:"1–8 pages",        simple:"1.5d", standard:"2d",  complex:null,  rush:"Yes",          eff1Simple:"2–4 hrs",   eff1Standard:"4–6 hrs",   eff1Complex:null,        revSimple:"2–4 hrs",  revStandard:"4–6 hrs",  revComplex:null       },
-          { scope:"9–16 pages",       simple:"2.5d", standard:"3d",  complex:null,  rush:"Case by case", eff1Simple:"4–8 hrs",   eff1Standard:"8–12 hrs",  eff1Complex:null,        revSimple:"4–6 hrs",  revStandard:"6–10 hrs", revComplex:null       },
-          { scope:"17–24 pages",      simple:"3d",   standard:"4d",  complex:null,  rush:"Case by case", eff1Simple:"8–12 hrs",  eff1Standard:"14–18 hrs", eff1Complex:null,        revSimple:"5–7 hrs",  revStandard:"8–10 hrs", revComplex:null       },
-          { scope:"25–50 pages",      simple:"4.5d", standard:"6d",  complex:null,  rush:"Limited",      eff1Simple:"18–26 hrs", eff1Standard:"28–40 hrs", eff1Complex:null,        revSimple:"6–8 hrs",  revStandard:"10–16 hrs",revComplex:null       },
-          { scope:"51–100 pages",     simple:"7.5d", standard:"11d", complex:null,  rush:"No",           eff1Simple:"40–52 hrs", eff1Standard:"60–80 hrs", eff1Complex:null,        revSimple:"8–12 hrs", revStandard:"16–24 hrs",revComplex:null       },
-          { scope:"101+ pages",       simple:"TOA",  standard:"TOA", complex:null,  rush:"No",           eff1Simple:"TOA",       eff1Standard:"TOA",       eff1Complex:null,        revSimple:"TOA",      revStandard:"TOA",      revComplex:null       },
-          { scope:"Up to 16pp (L&F)", simple:null,   standard:null,  complex:"5d",  rush:"Limited",      eff1Simple:null,        eff1Standard:null,        eff1Complex:"16–24 hrs", revSimple:null,       revStandard:null,       revComplex:"6–10 hrs" },
+          { scope:"Up to 8 pages",        cx:"Simple",   lead:"2d",    print:"2.5d", rev:"1d",    eff:"4 hrs",  rush:"Yes"          },
+          { scope:"Up to 16 pages",        cx:"Simple",   lead:"3d",    print:"3.5d", rev:"1.5d",  eff:"8 hrs",  rush:"Yes"          },
+          { scope:"Up to 24 pages",        cx:"Simple",   lead:"3.5d",  print:"4.5d", rev:"1.5d",  eff:"12 hrs", rush:"Yes"          },
+          { scope:"Up to 48 pages",        cx:"Simple",   lead:"5.5d",  print:"7d",   rev:"2d",    eff:"26 hrs", rush:"Case by case" },
+          { scope:"Up to 100 pages",       cx:"Simple",   lead:"9d",    print:"11d",  rev:"2.5d",  eff:"52 hrs", rush:"Limited"      },
+          { scope:"101+ pages",            cx:"Simple",   lead:"TOA",   print:"TOA",  rev:"TOA",   eff:"TOA",    rush:"No"           },
+          { scope:"Up to 8 pages",         cx:"Standard", lead:"3d",    print:"3.5d", rev:"1.5d",  eff:"6 hrs",  rush:"Yes"          },
+          { scope:"Up to 16 pages",        cx:"Standard", lead:"4d",    print:"4.5d", rev:"2d",    eff:"12 hrs", rush:"Case by case" },
+          { scope:"Up to 24 pages",        cx:"Standard", lead:"4.5d",  print:"5.5d", rev:"2.5d",  eff:"18 hrs", rush:"Case by case" },
+          { scope:"Up to 48 pages",        cx:"Standard", lead:"8d",    print:"9.5d", rev:"3d",    eff:"40 hrs", rush:"Limited"      },
+          { scope:"Up to 100 pages",       cx:"Standard", lead:"13.5d", print:"15.5d",rev:"4d",    eff:"80 hrs", rush:"No"           },
+          { scope:"101+ pages",            cx:"Standard", lead:"TOA",   print:"TOA",  rev:"TOA",   eff:"TOA",    rush:"No"           },
+          { scope:"Up to 16pp (L&F)",      cx:"Complex",  lead:"6d",    print:"N/A",  rev:"2d",    eff:"24 hrs", rush:"Limited"      },
         ]
       }
     ]
   },
   {
-    id:"presentation", category:"Presentations", icon:"▦", color:PURPLE,
+    id:"presentation", category:"Presentations", icon:"▦", color:PURPLE, hasPrint:false,
     assets:[
       {
         name:"PowerPoint / Slides",
+        note:"High slide counts may require milestone-based delivery. Timings assume charts, tables, and copy are supplied.",
         rows:[
-          { scope:"1–10 slides",  simple:"1.5d", standard:"2d",  complex:"2.5d", rush:"Yes",          eff1Simple:"2–4 hrs",   eff1Standard:"3–6 hrs",   eff1Complex:"4–8 hrs",   revSimple:"2–4 hrs",  revStandard:"4–6 hrs",  revComplex:"6–8 hrs"  },
-          { scope:"11–25 slides", simple:"2d",   standard:"3d",  complex:"4d",   rush:"Case by case", eff1Simple:"6–10 hrs",  eff1Standard:"10–16 hrs", eff1Complex:"16–20 hrs", revSimple:"4–6 hrs",  revStandard:"6–10 hrs", revComplex:"8–12 hrs" },
-          { scope:"26–50 slides", simple:"3.5d", standard:"5d",  complex:"6d",   rush:"Limited",      eff1Simple:"14–18 hrs", eff1Standard:"24–32 hrs", eff1Complex:"32–40 hrs", revSimple:"6–10 hrs", revStandard:"10–16 hrs",revComplex:"16 hrs"   },
-          { scope:"51+ slides",   simple:null,   standard:null,  complex:"TOA",  rush:"No",           eff1Simple:null,        eff1Standard:null,        eff1Complex:"TOA",       revSimple:null,       revStandard:null,       revComplex:"TOA"      },
+          { scope:"Up to 10 slides", cx:"Simple",   lead:"2.5d", rev:"1d",   eff:"4 hrs",  rush:"Yes"          },
+          { scope:"Up to 25 slides", cx:"Simple",   lead:"3.5d", rev:"1.5d", eff:"10 hrs", rush:"Yes"          },
+          { scope:"Up to 50 slides", cx:"Simple",   lead:"4.5d", rev:"2d",   eff:"18 hrs", rush:"Case by case" },
+          { scope:"Up to 10 slides", cx:"Standard", lead:"3d",   rev:"1.5d", eff:"6 hrs",  rush:"Yes"          },
+          { scope:"Up to 25 slides", cx:"Standard", lead:"4.5d", rev:"2d",   eff:"16 hrs", rush:"Case by case" },
+          { scope:"Up to 50 slides", cx:"Standard", lead:"6.5d", rev:"3d",   eff:"32 hrs", rush:"Limited"      },
+          { scope:"Up to 10 slides", cx:"Complex",  lead:"3.5d", rev:"2d",   eff:"8 hrs",  rush:"Case by case" },
+          { scope:"Up to 25 slides", cx:"Complex",  lead:"5d",   rev:"2.5d", eff:"20 hrs", rush:"Limited"      },
+          { scope:"Up to 50 slides", cx:"Complex",  lead:"8d",   rev:"3d",   eff:"40 hrs", rush:"Limited"      },
+          { scope:"51+ slides",      cx:"Complex",  lead:"TOA",  rev:"TOA",  eff:"TOA",    rush:"No"           },
         ]
       }
     ]
   },
   {
-    id:"video", category:"Video", icon:"▶", color:TEAL,
+    id:"video", category:"Video", icon:"▶", color:TEAL, hasPrint:false,
     assets:[
       {
         name:"Video Build",
         note:"Simple = supplied footage, basic cut. Standard = brand-led with motion graphics. Complex = full production, heavy animation.",
         rows:[
-          { scope:"Up to 15\"",  simple:"2d",   standard:"2.5d", complex:null,  rush:"Yes",          eff1Simple:"2–4 hrs",   eff1Standard:"4–6 hrs",   eff1Complex:null,        revSimple:"1–2 hrs",  revStandard:"2–3 hrs",  revComplex:null        },
-          { scope:"Up to 30\"",  simple:"2.5d", standard:"3.5d", complex:null,  rush:"Yes",          eff1Simple:"4–8 hrs",   eff1Standard:"8–12 hrs",  eff1Complex:null,        revSimple:"1–2 hrs",  revStandard:"2–3 hrs",  revComplex:null        },
-          { scope:"Up to 60\"",  simple:"3d",   standard:"4.5d", complex:"6d",  rush:"Case by case", eff1Simple:"8–12 hrs",  eff1Standard:"12–20 hrs", eff1Complex:"20–28 hrs", revSimple:"2–3 hrs",  revStandard:"3–5 hrs",  revComplex:"5–8 hrs"   },
-          { scope:"Up to 120\"", simple:"3.5d", standard:"5.5d", complex:"7d",  rush:"Limited",      eff1Simple:"12–16 hrs", eff1Standard:"20–28 hrs", eff1Complex:"28–40 hrs", revSimple:"3–4 hrs",  revStandard:"5–8 hrs",  revComplex:"8–12 hrs"  },
-          { scope:"Up to 240\"", simple:"4.5d", standard:"7d",   complex:"8d",  rush:"No",           eff1Simple:"16–24 hrs", eff1Standard:"28–40 hrs", eff1Complex:"40–50 hrs", revSimple:"4–6 hrs",  revStandard:"6–10 hrs", revComplex:"12–15 hrs" },
-          { scope:"Up to 300\"", simple:"5.5d", standard:"7d",   complex:"10d", rush:"No",           eff1Simple:"24–32 hrs", eff1Standard:"34–38 hrs", eff1Complex:"50–60 hrs", revSimple:"6–8 hrs",  revStandard:"10–12 hrs",revComplex:"15–18 hrs" },
-          { scope:"300\"+",      simple:"TOA",  standard:"TOA",  complex:"TOA", rush:"No",           eff1Simple:"TOA",       eff1Standard:"TOA",       eff1Complex:"TOA",       revSimple:"TOA",      revStandard:"TOA",      revComplex:"TOA"       },
+          { scope:'Up to 15\"', cx:"Simple",   lead:"2.5d", rev:"1d",   eff:"4 hrs",  rush:"Yes"          },
+          { scope:'Up to 30\"', cx:"Simple",   lead:"3d",   rev:"1.5d", eff:"8 hrs",  rush:"Yes"          },
+          { scope:'Up to 60\"', cx:"Simple",   lead:"3.5d", rev:"1.5d", eff:"12 hrs", rush:"Yes"          },
+          { scope:'Up to 120\"',cx:"Simple",   lead:"4d",   rev:"2d",   eff:"16 hrs", rush:"Case by case" },
+          { scope:'Up to 240\"',cx:"Simple",   lead:"5.5d", rev:"2.5d", eff:"24 hrs", rush:"Limited"      },
+          { scope:'Up to 300\"',cx:"Simple",   lead:"6.5d", rev:"3d",   eff:"32 hrs", rush:"No"           },
+          { scope:'300\"+',     cx:"Simple",   lead:"TOA",  rev:"TOA",  eff:"TOA",    rush:"No"           },
+          { scope:'Up to 15\"', cx:"Standard", lead:"3d",   rev:"1.5d", eff:"6 hrs",  rush:"Yes"          },
+          { scope:'Up to 30\"', cx:"Standard", lead:"3.5d", rev:"2d",   eff:"12 hrs", rush:"Yes"          },
+          { scope:'Up to 60\"', cx:"Standard", lead:"5d",   rev:"2d",   eff:"20 hrs", rush:"Case by case" },
+          { scope:'Up to 120\"',cx:"Standard", lead:"6d",   rev:"2.5d", eff:"28 hrs", rush:"Limited"      },
+          { scope:'Up to 240\"',cx:"Standard", lead:"7d",   rev:"3d",   eff:"36 hrs", rush:"No"           },
+          { scope:'Up to 300\"',cx:"Standard", lead:"8d",   rev:"3.5d", eff:"42 hrs", rush:"No"           },
+          { scope:'300\"+',     cx:"Standard", lead:"TOA",  rev:"TOA",  eff:"TOA",    rush:"No"           },
+          { scope:'Up to 30\"', cx:"Complex",  lead:"6d",   rev:"1.5d", eff:"24 hrs", rush:"Limited"      },
+          { scope:'Up to 60\"', cx:"Complex",  lead:"6.5d", rev:"2d",   eff:"28 hrs", rush:"Limited"      },
+          { scope:'Up to 120\"',cx:"Complex",  lead:"8d",   rev:"2.5d", eff:"40 hrs", rush:"Limited"      },
+          { scope:'Up to 240\"',cx:"Complex",  lead:"9.5d", rev:"3d",   eff:"50 hrs", rush:"Limited"      },
+          { scope:'Up to 300\"',cx:"Complex",  lead:"11.5d",rev:"3.5d", eff:"64 hrs", rush:"No"           },
+          { scope:'300\"+',     cx:"Complex",  lead:"TOA",  rev:"TOA",  eff:"TOA",    rush:"No"           },
         ]
       },
       {
         name:"Storyboard",
         note:"Simple = rough frames with supplied script. Standard = polished frames with scene direction. Complex = animatic or full motion.",
         rows:[
-          { scope:"Up to 15\"",  simple:"2d",   standard:null,  complex:null,  rush:"Yes",          eff1Simple:"2–3 hrs",   eff1Standard:null,        eff1Complex:null,        revSimple:"1 hr",     revStandard:null,       revComplex:null        },
-          { scope:"Up to 30\"",  simple:"2.5d", standard:"3d",  complex:"4d",  rush:"Yes",          eff1Simple:"3–4 hrs",   eff1Standard:"4–6 hrs",   eff1Complex:"6–8 hrs",   revSimple:"1–2 hrs",  revStandard:"2–3 hrs",  revComplex:"3–4 hrs"   },
-          { scope:"Up to 60\"",  simple:null,   standard:"4d",  complex:"4d",  rush:"Case by case", eff1Simple:null,        eff1Standard:"4–8 hrs",   eff1Complex:"8–12 hrs",  revSimple:null,       revStandard:"2–3 hrs",  revComplex:"3–5 hrs"   },
-          { scope:"Up to 120\"", simple:null,   standard:"4d",  complex:"5d",  rush:"Limited",      eff1Simple:null,        eff1Standard:"8–12 hrs",  eff1Complex:"12–16 hrs", revSimple:null,       revStandard:"3–4 hrs",  revComplex:"4–6 hrs"   },
-          { scope:"Up to 240\"", simple:null,   standard:"5d",  complex:"5d",  rush:"Limited",      eff1Simple:null,        eff1Standard:"18–22 hrs", eff1Complex:"24–26 hrs", revSimple:null,       revStandard:"3–4 hrs",  revComplex:"8–10 hrs"  },
-          { scope:"Up to 300\"", simple:null,   standard:"6d",  complex:"6d",  rush:"Limited",      eff1Simple:null,        eff1Standard:"24–30 hrs", eff1Complex:"28–37.5 hrs",revSimple:null,      revStandard:"3–4 hrs",  revComplex:"10–12 hrs" },
-          { scope:"240\"+",      simple:"TOA",  standard:"TOA", complex:"TOA", rush:"No",           eff1Simple:"TOA",       eff1Standard:"TOA",       eff1Complex:"TOA",       revSimple:"TOA",      revStandard:"TOA",      revComplex:"TOA"       },
+          { scope:'Up to 15\"', cx:"Simple",   lead:"2.5d", rev:"1d",   eff:"3 hrs",  rush:"Yes"          },
+          { scope:'Up to 30\"', cx:"Simple",   lead:"2.5d", rev:"1.5d", eff:"4 hrs",  rush:"Yes"          },
+          { scope:'Up to 15\"', cx:"Standard", lead:"2.5d", rev:"1d",   eff:"4 hrs",  rush:"Yes"          },
+          { scope:'Up to 30\"', cx:"Standard", lead:"3d",   rev:"1d",   eff:"6 hrs",  rush:"Yes"          },
+          { scope:'Up to 60\"', cx:"Standard", lead:"3d",   rev:"1.5d", eff:"8 hrs",  rush:"Case by case" },
+          { scope:'Up to 120\"',cx:"Standard", lead:"4d",   rev:"1.5d", eff:"14 hrs", rush:"Limited"      },
+          { scope:'Up to 240\"',cx:"Standard", lead:"5d",   rev:"1.5d", eff:"22 hrs", rush:"Limited"      },
+          { scope:'Up to 300\"',cx:"Standard", lead:"6d",   rev:"2d",   eff:"26 hrs", rush:"No"           },
+          { scope:'300\"+',     cx:"Standard", lead:"TOA",  rev:"TOA",  eff:"TOA",    rush:"No"           },
+          { scope:'Up to 30\"', cx:"Complex",  lead:"3.5d", rev:"1.5d", eff:"8 hrs",  rush:"Case by case" },
+          { scope:'Up to 60\"', cx:"Complex",  lead:"4d",   rev:"1.5d", eff:"12 hrs", rush:"Limited"      },
+          { scope:'Up to 120\"',cx:"Complex",  lead:"4.5d", rev:"2d",   eff:"16 hrs", rush:"Limited"      },
+          { scope:'Up to 240\"',cx:"Complex",  lead:"6d",   rev:"2d",   eff:"26 hrs", rush:"Limited"      },
+          { scope:'Up to 300\"',cx:"Complex",  lead:"7d",   rev:"2d",   eff:"32 hrs", rush:"Limited"      },
+          { scope:'300\"+',     cx:"Complex",  lead:"TOA",  rev:"TOA",  eff:"TOA",    rush:"No"           },
         ]
       }
     ]
   },
   {
-    id:"digital", category:"Digital", icon:"◈", color:BLUE,
+    id:"digital", category:"Digital", icon:"◈", color:BLUE, hasPrint:false,
     assets:[
       {
         name:"Web / Social Banner (Static)",
+        note:"Template-led resizing and adaptations are typically classed as Simple. Bespoke campaign creative may increase complexity.",
         rows:[
-          { scope:"1–3 assets", simple:"2.5d", standard:null,   complex:null,  rush:"Yes",          eff1Simple:"4–8 hrs",   eff1Standard:null,        eff1Complex:null,        revSimple:"1–2 hrs", revStandard:null,      revComplex:null      },
-          { scope:"4–8 assets", simple:null,   standard:"3.5d", complex:null,  rush:"Yes",          eff1Simple:null,        eff1Standard:"8–16 hrs",  eff1Complex:null,        revSimple:null,      revStandard:"2–4 hrs", revComplex:null      },
-          { scope:"9+ assets",  simple:null,   standard:null,   complex:"5d",  rush:"Case by case", eff1Simple:null,        eff1Standard:null,        eff1Complex:"16–32 hrs", revSimple:null,      revStandard:null,      revComplex:"4–8 hrs" },
+          { scope:"Up to 3 assets", cx:"Simple",   lead:"2.5d", rev:"1d", eff:"4 hrs",  rush:"Yes" },
+          { scope:"Up to 6 assets", cx:"Simple",   lead:"3d",   rev:"1d", eff:"8 hrs",  rush:"Yes" },
+          { scope:"Up to 3 assets", cx:"Standard", lead:"3d",   rev:"1d", eff:"6 hrs",  rush:"Yes" },
+          { scope:"Up to 6 assets", cx:"Standard", lead:"3.5d", rev:"1d", eff:"10 hrs", rush:"Yes" },
         ]
       },
       {
         name:"Key Visual",
-        note:"Single-asset scope. Multi-asset campaigns require separate scoping.",
+        note:"Single-asset scope. Multi-asset campaigns require separate scoping. Complex = multi-market or full campaign KV.",
         rows:[
-          { scope:"Single asset", simple:"2.5d", standard:"3.5d", complex:"TOA", rush:"Yes", eff1Simple:"4–8 hrs", eff1Standard:"8–16 hrs", eff1Complex:"TOA", revSimple:"2–4 hrs", revStandard:"2–4 hrs", revComplex:"TOA" },
+          { scope:"Single asset", cx:"Simple",   lead:"3d",   rev:"1d",   eff:"8 hrs",  rush:"Yes"  },
+          { scope:"Single asset", cx:"Standard", lead:"4d",   rev:"1.5d", eff:"16 hrs", rush:"Yes"  },
+          { scope:"Single asset", cx:"Complex",  lead:"5.5d", rev:"2d",   eff:"24 hrs", rush:"No"   },
         ]
       },
       {
         name:"Email",
         rows:[
-          { scope:"Single email",  simple:"2.5d", standard:"3.5d", complex:null,  rush:"Yes", eff1Simple:"2–4 hrs", eff1Standard:"6–12 hrs", eff1Complex:null,  revSimple:"1–2 hrs", revStandard:"2–4 hrs", revComplex:null  },
-          { scope:"Multi-variant", simple:null,   standard:null,   complex:"TOA", rush:"No",  eff1Simple:null,      eff1Standard:null,       eff1Complex:"TOA", revSimple:null,      revStandard:null,      revComplex:"TOA" },
+          { scope:"Single email", cx:"Simple",   lead:"2.5d", rev:"1d",   eff:"4 hrs",  rush:"Yes" },
+          { scope:"Single email", cx:"Standard", lead:"3.5d", rev:"1.5d", eff:"12 hrs", rush:"Yes" },
         ]
       },
       {
         name:"Infographic",
+        note:"Complex requires bespoke scoping — heavy data visualisation.",
         rows:[
-          { scope:"Single asset", simple:"3.5d", standard:"4.5d", complex:"6d", rush:"Case by case", eff1Simple:"8–12 hrs", eff1Standard:"16–24 hrs", eff1Complex:"TOA", revSimple:"2–4 hrs", revStandard:"4–8 hrs", revComplex:"TOA" },
+          { scope:"Single asset", cx:"Simple",   lead:"3.5d", rev:"1d",   eff:"12 hrs", rush:"Yes"          },
+          { scope:"Single asset", cx:"Standard", lead:"5.5d", rev:"2d",   eff:"24 hrs", rush:"Case by case" },
+          { scope:"Single asset", cx:"Complex",  lead:"TOA",  rev:"TOA",  eff:"TOA",    rush:"No"           },
         ]
       }
     ]
   },
   {
-    id:"event", category:"Event & Print", icon:"⊞", color:AMBER,
+    id:"event", category:"Event & Print", icon:"⊞", color:AMBER, hasPrint:true,
     assets:[
       {
         name:"Large Format Print",
-        note:"Lead times are to print-ready artwork. Includes bleed, safe area and CMYK setup. Simple = adapt existing. Standard = new layout. Complex = custom or non-standard format.",
+        note:"Print-ready outputs include production setup and QA. Timings assume specifications are supplied upfront.",
         rows:[
-          { scope:"Single panel",       simple:"1.5d", standard:"2.5d", complex:"4d",  rush:"Yes",     eff1Simple:"2–4 hrs",  eff1Standard:"4–8 hrs",  eff1Complex:"8–16 hrs", revSimple:"1–2 hrs", revStandard:"2–4 hrs", revComplex:"4–6 hrs" },
-          { scope:"2–5 panels (suite)", simple:"3d",   standard:"4.5d", complex:null,  rush:"Limited", eff1Simple:"6–14 hrs", eff1Standard:"12–28 hrs",eff1Complex:null,       revSimple:"2–4 hrs", revStandard:"4–8 hrs", revComplex:null      },
+          { scope:"Single panel",       cx:"Simple",   print:"3d",   rev:"1d",   eff:"4 hrs",  rush:"Yes"          },
+          { scope:"Single panel",       cx:"Standard", print:"3.5d", rev:"1d",   eff:"8 hrs",  rush:"Yes"          },
+          { scope:"Single panel",       cx:"Complex",  print:"5d",   rev:"1.5d", eff:"16 hrs", rush:"Case by case" },
+          { scope:"Up to 5 panels",     cx:"Simple",   print:"4d",   rev:"1d",   eff:"14 hrs", rush:"Case by case" },
+          { scope:"Up to 5 panels",     cx:"Standard", print:"6.5d", rev:"2d",   eff:"28 hrs", rush:"Limited"      },
         ]
       },
       {
         name:"Event Screen Graphics",
-        note:"9+ screens or animation is TOA — requires bespoke scoping.",
+        note:"Digital output only. Each screen: image placement, headline, QR code, brand lockup.",
         rows:[
-          { scope:"1–3 screens", simple:"1.5d", standard:"2.5d", complex:null, rush:"Yes",          eff1Simple:"2–4 hrs", eff1Standard:"4–8 hrs",  eff1Complex:null, revSimple:"1 hr",    revStandard:"1–2 hrs", revComplex:null },
-          { scope:"4–8 screens", simple:"2.5d", standard:"3.5d", complex:null, rush:"Case by case", eff1Simple:"4–8 hrs", eff1Standard:"8–16 hrs", eff1Complex:null, revSimple:"1–2 hrs", revStandard:"2–4 hrs", revComplex:null },
-          { scope:"9+ screens",  simple:"TOA",  standard:"TOA",  complex:null, rush:"No",           eff1Simple:"TOA",     eff1Standard:"TOA",      eff1Complex:null, revSimple:"TOA",     revStandard:"TOA",     revComplex:null },
+          { scope:"Up to 3 screens", cx:"Simple",   lead:"2.5d", rev:"1d",   eff:"4 hrs", rush:"Yes" },
+          { scope:"Up to 3 screens", cx:"Standard", lead:"3d",   rev:"1d",   eff:"8 hrs", rush:"Yes" },
         ]
       }
     ]
   }
 ];
+
 function TurnaroundPanel({ team, isAmend }) {
   const excluded = ["brandstop","process","stop"];
   if (!team || excluded.includes(team)) return null;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen]       = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const cat = TURNAROUND_DATA[activeIdx];
-  const rushColor = (r) => !r ? TEXT_MUTED : r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
-  const valColor  = (v) => !v || v==="TOA" ? "#4A4A6A" : TEXT_SECONDARY;
-  const valWeight = (v) => !v || v==="TOA" ? 300 : 500;
-  const effColor  = (v) => !v || v==="TOA" ? "#3A3A50" : "#6A6A8A";
-  // In amendment mode: show revision effort. In 1st-draft mode: show lead time + production effort stacked.
-  const getLead = (row, key) => isAmend ? null : row[key];
-  const getEff  = (row, key) => {
-    const cap = key.charAt(0).toUpperCase()+key.slice(1);
-    return isAmend ? row[`rev${cap}`] : row[`eff1${cap}`];
-  };
+
+  const CX_COLOR  = { Simple: TEAL, Standard: ORANGE, Complex: PURPLE };
+  const rushColor = (r) => r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
+  const isTOA     = (v) => !v || v==="TOA" || v==="N/A";
+  const valColor  = (v) => isTOA(v) ? "#3A3A50" : TEXT_SECONDARY;
+
   const accentColor = isAmend ? AMBER : BLUE;
-  const label = isAmend ? "Amendment effort / round" : "Lead time & effort";
-  const footer = isAmend
-    ? "Hours per revision round · One round = one consolidated set of feedback · Rounds are in addition to first-draft lead time · TOA = bespoke scoping required"
-    : "Lead time = working days from brief sign-off to first draft · Effort = production hours (excl. set-up: Simple +3 hrs, Standard +4 hrs, Complex +6 hrs) · TOA = bespoke scoping required";
+  const label       = isAmend ? "Amendment effort / round" : "Lead time & effort";
+  const footer      = isAmend
+    ? "Hours per revision round · One round = one consolidated set of feedback · Rounds are in addition to first-draft lead time"
+    : "Lead time = working days from brief sign-off to first draft · Effort = production hours · Print-ready shown where applicable · TOA = requires bespoke scoping";
+
   return (
     <div style={{ marginBottom:16 }}>
       <button onClick={() => setOpen(o => !o)}
-        style={{ width:"100%", background:BG, border:`1px solid ${open ? accentColor : BORDER}`, borderRadius:open?"10px 10px 0 0":10, padding:"12px 16px", cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", justifyContent:"space-between", transition:"border-color 0.2s, border-radius 0.1s" }}
+        style={{ width:"100%", background:BG, border:`1px solid ${open ? accentColor : BORDER}`, borderRadius:open?"10px 10px 0 0":10, padding:"12px 16px", cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", justifyContent:"space-between", transition:"border-color 0.2s" }}
         onMouseEnter={e=>{ if(!open) e.currentTarget.style.borderColor=accentColor; }}
         onMouseLeave={e=>{ if(!open) e.currentTarget.style.borderColor=BORDER; }}>
         <div style={{ display:"flex", alignItems:"center", gap:8 }}>
@@ -409,68 +450,46 @@ function TurnaroundPanel({ team, isAmend }) {
       {open && (
         <div style={{ background:BG, border:`1px solid ${accentColor}`, borderTop:"none", borderRadius:"0 0 10px 10px", overflow:"hidden" }}>
           {isAmend && (
-            <div style={{ padding:"8px 14px", background:"#1A1000", borderBottom:"1px solid #3A2800", display:"flex", alignItems:"center", gap:8 }}>
+            <div style={{ padding:"8px 14px", background:"#1A1000", borderBottom:"1px solid #3A2800", display:"flex", gap:8 }}>
               <span style={{ fontSize:11, color:"#F59E0B" }}>⚑</span>
-              <span style={{ fontSize:11, color:"#D97706", fontWeight:300, lineHeight:1.5 }}>Effort estimates per round — not calendar days. One round = one consolidated set of feedback. Revision rounds are in addition to the first-draft lead time.</span>
+              <span style={{ fontSize:11, color:"#D97706", fontWeight:300, lineHeight:1.5 }}>Effort estimates per revision round — not calendar days. One round = one consolidated set of feedback. Rounds are additional to first-draft lead time.</span>
             </div>
           )}
-          {!isAmend && (
-            <div style={{ padding:"6px 14px", background:"#0A0A14", borderBottom:"1px solid #1A1A28", display:"flex", gap:16 }}>
-              <div style={{ display:"flex", alignItems:"center", gap:5 }}>
-                <div style={{ width:6, height:6, borderRadius:"50%", background:TEXT_SECONDARY, flexShrink:0 }}/>
-                <span style={{ fontSize:10, color:"#5A5A7A", fontWeight:300 }}>Top = lead time (days)</span>
-              </div>
-              <div style={{ display:"flex", alignItems:"center", gap:5 }}>
-                <div style={{ width:6, height:6, borderRadius:"50%", background:"#6A6A8A", flexShrink:0 }}/>
-                <span style={{ fontSize:10, color:"#5A5A7A", fontWeight:300 }}>Below = production effort (hrs)</span>
-              </div>
-            </div>
-          )}
+          {/* Category tabs */}
           <div style={{ display:"flex", gap:5, padding:"8px 12px", borderBottom:"1px solid #1E1E2E", overflowX:"auto" }}>
             {TURNAROUND_DATA.map((c,i) => (
               <button key={i} onClick={()=>setActiveIdx(i)}
-                style={{ padding:"5px 11px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:6, cursor:"pointer", fontFamily:FONT, whiteSpace:"nowrap", display:"flex", alignItems:"center", gap:5, flexShrink:0, transition:"all 0.15s" }}>
+                style={{ padding:"5px 11px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:6, cursor:"pointer", fontFamily:FONT, whiteSpace:"nowrap", display:"flex", alignItems:"center", gap:5, flexShrink:0 }}>
                 <span style={{ fontSize:11, color:i===activeIdx?c.color:TEXT_MUTED }}>{c.icon}</span>
                 <span style={{ fontSize:11, color:i===activeIdx?c.color:TEXT_MUTED, fontWeight:i===activeIdx?700:400 }}>{c.category}</span>
               </button>
             ))}
           </div>
+          {/* Asset tables */}
           {cat.assets.map((asset,ai) => (
-            <div key={ai} style={{ padding:"12px 14px", borderBottom:ai<cat.assets.length-1?"1px solid #1A1A28":"none" }}>
+            <div key={ai} style={{ padding:"10px 14px", borderBottom:ai<cat.assets.length-1?"1px solid #1A1A28":"none" }}>
               <div style={{ fontSize:11, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:asset.note?3:8 }}>{asset.name}</div>
-              {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginBottom:8, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
-              <div style={{ display:"grid", gridTemplateColumns:"1fr 72px 76px 76px 80px", gap:0, marginBottom:2 }}>
-                {["Scope","Simple","Standard","Complex","Rush"].map(h=>(
-                  <div key={h} style={{ fontSize:9, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", padding:"3px 5px" }}>{h}</div>
+              {asset.note && <div style={{ fontSize:10, color:"#3A3A50", marginBottom:8, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
+              {/* Header */}
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 56px 60px 60px 60px 72px", gap:0 }}>
+                {["Scope","Cx",isAmend?"Rev effort":cat.hasPrint&&asset.rows[0]?.print?"Print-ready":"Lead","Effort","Revision","Rush"].map(h=>(
+                  <div key={h} style={{ fontSize:9, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", padding:"3px 4px" }}>{h}</div>
                 ))}
               </div>
               {asset.rows.map((row,ri) => {
-                const keys = ["simple","standard","complex"];
+                const mainTime = isAmend ? row.rev : (row.lead || row.print);
+                const effVal   = row.eff;
+                const revVal   = isAmend ? "—" : row.rev;
                 return (
-                  <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 72px 76px 76px 80px", gap:0, borderTop:"1px solid #1A1A28" }}>
-                    <div style={{ fontSize:12, color:TEXT_MUTED, padding:"7px 5px", lineHeight:1.4 }}>{row.scope}</div>
-                    {keys.map(k => {
-                      const lead = getLead(row,k);
-                      const eff  = getEff(row,k);
-                      const hasVal = lead || eff;
-                      return (
-                        <div key={k} style={{ padding:"7px 5px" }}>
-                          {isAmend ? (
-                            <span style={{ fontSize:12, color:valColor(eff), fontWeight:valWeight(eff) }}>{eff||"—"}</span>
-                          ) : (
-                            hasVal ? (
-                              <>
-                                <div style={{ fontSize:12, color:valColor(lead), fontWeight:valWeight(lead), lineHeight:1.3 }}>{lead||"—"}</div>
-                                {eff && <div style={{ fontSize:10, color:effColor(eff), fontWeight:300, lineHeight:1.3, marginTop:1 }}>{eff}</div>}
-                              </>
-                            ) : (
-                              <span style={{ fontSize:12, color:"#4A4A6A" }}>—</span>
-                            )
-                          )}
-                        </div>
-                      );
-                    })}
-                    <div style={{ fontSize:11, padding:"7px 5px", lineHeight:1.4, color:rushColor(row.rush) }}>{row.rush}</div>
+                  <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 56px 60px 60px 60px 72px", gap:0, borderTop:"1px solid #1A1A28" }}>
+                    <div style={{ fontSize:11, color:TEXT_MUTED, padding:"5px 4px", lineHeight:1.4 }}>{row.scope}</div>
+                    <div style={{ padding:"5px 4px" }}>
+                      <span style={{ fontSize:10, color:CX_COLOR[row.cx]||TEXT_MUTED, fontWeight:600, background:CX_COLOR[row.cx]+"18", borderRadius:3, padding:"1px 4px" }}>{row.cx}</span>
+                    </div>
+                    <div style={{ fontSize:12, color:valColor(mainTime), padding:"5px 4px", fontWeight:isTOA(mainTime)?300:600 }}>{mainTime||"—"}</div>
+                    <div style={{ fontSize:11, color:isTOA(effVal)?"#3A3A50":"#6A6A8A", padding:"5px 4px", fontWeight:300 }}>{effVal||"—"}</div>
+                    <div style={{ fontSize:11, color:valColor(revVal), padding:"5px 4px" }}>{revVal}</div>
+                    <div style={{ fontSize:11, color:rushColor(row.rush), padding:"5px 4px", lineHeight:1.4 }}>{row.rush}</div>
                   </div>
                 );
               })}
@@ -484,6 +503,7 @@ function TurnaroundPanel({ team, isAmend }) {
     </div>
   );
 }
+
 
 // ─── TOOLS ───────────────────────────────────────────────────────────────────
 const TOOLS = [
@@ -999,68 +1019,53 @@ const ONBOARDING_SECTIONS = [
 ];
 
 function OBTurnaroundView() {
-  const [view, setView] = useState("howto");
+  const [view, setView]           = useState("howto");
   const [activeIdx, setActiveIdx] = useState(0);
   const cat = TURNAROUND_DATA[activeIdx];
+  const CX_COLOR  = { Simple: TEAL, Standard: ORANGE, Complex: PURPLE };
   const rushColor = (r) => r==="Yes" ? TEAL : r==="No" ? "#EF4444" : "#F59E0B";
-  const valColor  = (v) => !v || v==="TOA" ? "#3A3A50" : TEXT_SECONDARY;
-  const valWeight = (v) => !v || v==="TOA" ? 300 : 600;
-  const effColor  = (v) => !v || v==="TOA" ? "#2A2A3A" : "#5A5A7A";
+  const isTOA     = (v) => !v || v==="TOA" || v==="N/A";
+  const valColor  = (v) => isTOA(v) ? "#3A3A50" : TEXT_SECONDARY;
 
   const PRINCIPLES = [
-    {
-      num:"1", title:"Build timings in components",
-      body:"Do not look for one row that perfectly matches a request. Most projects are made up of multiple deliverables or production stages. Select the base creation effort, any additional versions or outputs, storyboard or production stages where required, and any print or production uplift.",
-    },
-    {
-      num:"2", title:"Use complexity judgement",
-      body:"Simple, Standard and Complex are guides — not fixed categories. Consider stakeholder count, amount of bespoke design, content quality, number of versions, animation complexity, production risk, and turnaround pressure. Not every 32-page brochure is Complex. Not every short video is Simple.",
-    },
-    {
-      num:"3", title:"The matrix is guidance, not fixed law",
-      body:"The matrix provides planning guidance, capacity guidance and expectation management. PM and studio judgement should still be applied. Timings may flex based on briefing quality, supplied assets, review speed, approval structure, and current studio capacity.",
-    },
+    { num:"1", title:"Build timings in components",
+      body:"Do not look for one row that perfectly matches a request. Most projects are made up of multiple deliverables or production stages. Select the base creation effort, any additional versions or outputs, storyboard or production stages where required, and any print or production uplift." },
+    { num:"2", title:"Use complexity judgement",
+      body:"Simple, Standard and Complex are guides — not fixed categories. Consider stakeholder count, amount of bespoke design, content quality, number of versions, animation complexity, production risk, and turnaround pressure. Not every 32-page brochure is Complex. Not every short video is Simple." },
+    { num:"3", title:"The matrix is guidance, not fixed law",
+      body:"The matrix provides planning guidance, capacity guidance and expectation management. PM and studio judgement should still be applied. Timings may flex based on briefing quality, supplied assets, review speed, approval structure, and current studio capacity." },
   ];
-
   const EXAMPLES = [
-    {
-      title:"Multi-page document",
-      scenario:"New 32-page brochure — bespoke design, print-ready output required.",
-      color:ORANGE, icon:"⊡",
+    { title:"Multi-page document", scenario:"New 32-page brochure — bespoke design, print-ready output required.", color:ORANGE, icon:"⊡",
       steps:[
-        { step:"1", action:"Select Look & Feel creation", detail:"Choose Up to 16pp — Standard or Complex. This covers the initial creative approach, design system, layout style and key pages." },
-        { step:"2", action:"Add remaining pages", detail:"Then select 17–32pp at Simple or Standard, depending on how repetitive the remaining pages are, content consistency and number of layouts required." },
-        { step:"3", action:"Add print production uplift", detail:"If print-ready artwork is required, apply the print production uplift. This covers bleed setup, export QA, artwork checks and print specifications." },
+        { step:"1", action:"Select Look & Feel creation", detail:"Choose Up to 16pp — Complex. This covers the initial creative approach, design system, layout style and key pages." },
+        { step:"2", action:"Add remaining pages", detail:'Then select 17–32pp at Simple or Standard using the Up to 48 page band, depending on how repetitive the remaining pages are.' },
+        { step:"3", action:"Add print production uplift", detail:"If print-ready artwork is required, use the Print-ready column. This covers bleed setup, export QA, artwork checks and print specifications." },
       ]
     },
-    {
-      title:"Video with cutdown and storyboard",
-      scenario:"2-minute video + 15-second cutdown. Storyboard required upfront.",
-      color:TEAL, icon:"▶",
+    { title:"Video with cutdown and storyboard", scenario:'2-minute video + 15-second cutdown. Storyboard required upfront.', color:TEAL, icon:"▶",
       steps:[
-        { step:"1", action:"Select main video build", detail:"Choose Up to 240\" — Standard or Complex, depending on animation level, graphics, subtitles, motion complexity and outputs." },
-        { step:"2", action:"Add storyboard", detail:"Choose Up to 240\" Storyboard — Standard, as storyboard creation is required upfront before production begins." },
-        { step:"3", action:"Add cutdown", detail:"Choose Up to 15\" Cutdown — Simple or Standard, depending on platform formatting, re-edit complexity and graphics or versioning required." },
+        { step:"1", action:"Select main video build", detail:'Choose Up to 240\" — Standard or Complex, depending on animation level, graphics and outputs.' },
+        { step:"2", action:"Add storyboard", detail:'Choose Up to 240\" Storyboard — Standard. Storyboard creation is required upfront before production begins.' },
+        { step:"3", action:"Add cutdown", detail:'Choose Up to 15\" — Simple or Standard, depending on platform formatting and re-edit complexity.' },
       ]
     },
   ];
-
   const RUSH_RULES = [
-    { label:"Yes",           color:TEAL,      bg:"#0A2020", border:"#0F6060", desc:"Rush is available. Still subject to studio confirmation and current capacity." },
-    { label:"Case by case",  color:"#F59E0B", bg:"#1A1000", border:"#5A3800", desc:"Rush may be possible — studio must approve before committing. Raise with the PM lead before promising a client." },
-    { label:"Limited",       color:"#F59E0B", bg:"#1A1000", border:"#5A3800", desc:"Rush is occasionally possible but not reliable. Treat as unavailable unless the studio confirms otherwise." },
-    { label:"No",            color:"#EF4444", bg:"#1A0808", border:"#5A1010", desc:"Rush is not available for this scope and complexity. Do not commit a rush delivery to the client." },
+    { label:"Yes",          color:TEAL,      bg:"#0A2020", border:"#0F6060", desc:"Rush is available. Still subject to studio confirmation and current capacity." },
+    { label:"Case by case", color:"#F59E0B", bg:"#1A1000", border:"#5A3800", desc:"Rush may be possible — studio must approve before committing. Raise with the PM lead before promising a client." },
+    { label:"Limited",      color:"#F59E0B", bg:"#1A1000", border:"#5A3800", desc:"Rush is occasionally possible but not reliable. Treat as unavailable unless the studio confirms otherwise." },
+    { label:"No",           color:"#EF4444", bg:"#1A0808", border:"#5A1010", desc:"Rush is not available for this scope and complexity. Do not commit a rush delivery to the client." },
   ];
-
   const REMINDERS = [
     { title:"Revision timings assume one consolidated round", body:"Revision timings are based on one consolidated set of feedback. Fragmented or rolling feedback may require re-estimation and revised delivery timings." },
-    { title:"Timings assume supplied content", body:"All lead times and effort estimates assume supplied copy, imagery and assets. They also assume an agreed brief, a named approver, and consolidated feedback. If any of these are missing at brief stage, add contingency before committing to a delivery date." },
+    { title:"Timings assume supplied content", body:"All lead times assume supplied copy, imagery and assets, an agreed brief, a named approver, and consolidated feedback. If any of these are missing at brief stage, add contingency before committing to a delivery date." },
     { title:"Re-estimation triggers", body:"Projects may require bespoke scoping if scope changes significantly, additional versions are added, content arrives late, stakeholder groups increase, localisation is required, or complexity increases during production." },
   ];
 
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:0 }}>
-      {/* View toggle */}
+      {/* Toggle */}
       <div style={{ display:"flex", gap:8, marginBottom:20 }}>
         {[["howto","How to use"],["matrix","Matrix"]].map(([id,label])=>(
           <button key={id} onClick={()=>setView(id)}
@@ -1072,20 +1077,15 @@ function OBTurnaroundView() {
 
       {view==="howto" ? (
         <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
-          {/* Intro */}
           <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:10, padding:"16px 18px" }}>
             <div style={{ fontSize:12, color:BLUE, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:10 }}>Think of it as a shopping list</div>
-            <p style={{ fontSize:14, color:TEXT_MUTED, margin:0, lineHeight:1.8, fontWeight:300 }}>
-              The matrix is a modular scoping tool — not a fixed rate card. Select the relevant components for the actual brief, combine timings based on what is being produced, and apply judgement based on complexity and delivery requirements. The goal is to create realistic delivery plans, protect studio capacity, and set consistent expectations.
-            </p>
+            <p style={{ fontSize:14, color:TEXT_MUTED, margin:0, lineHeight:1.8, fontWeight:300 }}>The matrix is a modular scoping tool — not a fixed rate card. Select the relevant components for the actual brief, combine timings based on what is being produced, and apply judgement based on complexity and delivery requirements.</p>
           </div>
-
-          {/* Core principles */}
           <div>
             <div style={{ fontSize:11, color:TEXT_MUTED, fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:10 }}>Core principles</div>
             <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
               {PRINCIPLES.map((p,i)=>(
-                <div key={i} style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:10, padding:"14px 18px", display:"flex", gap:14, alignItems:"flex-start" }}>
+                <div key={i} style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:10, padding:"14px 18px", display:"flex", gap:14 }}>
                   <div style={{ width:24, height:24, borderRadius:6, background:"#13101E", border:`1px solid ${BORDER}`, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
                     <span style={{ fontSize:11, color:ORANGE, fontWeight:800 }}>{p.num}</span>
                   </div>
@@ -1097,8 +1097,6 @@ function OBTurnaroundView() {
               ))}
             </div>
           </div>
-
-          {/* Worked examples */}
           <div>
             <div style={{ fontSize:11, color:TEXT_MUTED, fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:10 }}>Worked examples</div>
             <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
@@ -1112,7 +1110,7 @@ function OBTurnaroundView() {
                     </div>
                   </div>
                   {ex.steps.map((s,si)=>(
-                    <div key={si} style={{ padding:"12px 18px", borderBottom:si<ex.steps.length-1?`1px solid #1A1A28`:"none", display:"flex", gap:14, alignItems:"flex-start" }}>
+                    <div key={si} style={{ padding:"12px 18px", borderBottom:si<ex.steps.length-1?`1px solid #1A1A28`:"none", display:"flex", gap:14 }}>
                       <div style={{ width:22, height:22, borderRadius:"50%", background:"#13101E", border:`1px solid ${ex.color}40`, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:1 }}>
                         <span style={{ fontSize:10, color:ex.color, fontWeight:700 }}>{s.step}</span>
                       </div>
@@ -1126,13 +1124,11 @@ function OBTurnaroundView() {
               ))}
             </div>
           </div>
-
-          {/* Rush rules */}
           <div>
             <div style={{ fontSize:11, color:TEXT_MUTED, fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:10 }}>Rush availability — what the column means</div>
             <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
               {RUSH_RULES.map((r,ri)=>(
-                <div key={ri} style={{ background:r.bg, border:`1px solid ${r.border}`, borderRadius:8, padding:"10px 14px", display:"flex", gap:12, alignItems:"flex-start" }}>
+                <div key={ri} style={{ background:r.bg, border:`1px solid ${r.border}`, borderRadius:8, padding:"10px 14px", display:"flex", gap:12 }}>
                   <span style={{ fontSize:12, color:r.color, fontWeight:700, minWidth:100, paddingTop:1 }}>{r.label}</span>
                   <span style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.6 }}>{r.desc}</span>
                 </div>
@@ -1142,8 +1138,6 @@ function OBTurnaroundView() {
               </div>
             </div>
           </div>
-
-          {/* Important reminders */}
           <div>
             <div style={{ fontSize:11, color:TEXT_MUTED, fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:10 }}>Important reminders</div>
             <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
@@ -1155,9 +1149,8 @@ function OBTurnaroundView() {
               ))}
             </div>
           </div>
-
           <button onClick={()=>setView("matrix")}
-            style={{ padding:"11px", background:"transparent", border:`1px solid ${BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, fontSize:13, color:TEXT_MUTED, fontWeight:500, transition:"all 0.15s", marginTop:4 }}
+            style={{ padding:"11px", background:"transparent", border:`1px solid ${BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, fontSize:13, color:TEXT_MUTED, fontWeight:500, marginTop:4 }}
             onMouseEnter={e=>{e.target.style.borderColor=BLUE;e.target.style.color=BLUE;}}
             onMouseLeave={e=>{e.target.style.borderColor=BORDER;e.target.style.color=TEXT_MUTED;}}>
             Open the matrix →
@@ -1166,54 +1159,56 @@ function OBTurnaroundView() {
       ) : (
         <div style={{ display:"flex", flexDirection:"column", gap:0 }}>
           <p style={{ fontSize:13, color:TEXT_MUTED, fontWeight:300, lineHeight:1.7, marginBottom:10 }}>
-            Each cell shows lead time (days) and production effort (hours). Use effort for booking and estimates. Set-up time is additional: Simple +3 hrs · Standard +4 hrs · Complex +6 hrs.
+            Each row is one scope and complexity combination. Lead time = working days from brief sign-off. Effort = production hours (use for booking and estimates). Print-ready shown where applicable.
           </p>
-          <div style={{ display:"flex", gap:10, marginBottom:14, flexWrap:"wrap" }}>
-            <div style={{ display:"flex", alignItems:"center", gap:5 }}>
-              <div style={{ width:6, height:6, borderRadius:"50%", background:TEXT_SECONDARY }}/>
-              <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Top line = lead time (days)</span>
-            </div>
-            <div style={{ display:"flex", alignItems:"center", gap:5 }}>
-              <div style={{ width:6, height:6, borderRadius:"50%", background:"#5A5A7A" }}/>
-              <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Bottom line = production effort (hrs)</span>
-            </div>
+          <div style={{ display:"flex", gap:8, marginBottom:14, flexWrap:"wrap" }}>
+            {Object.entries({ Simple:TEAL, Standard:ORANGE, Complex:PURPLE }).map(([k,c])=>(
+              <div key={k} style={{ display:"flex", alignItems:"center", gap:5 }}>
+                <div style={{ width:8, height:8, borderRadius:2, background:c }}/>
+                <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>{k}</span>
+              </div>
+            ))}
           </div>
+          {/* Category tabs */}
           <div style={{ display:"flex", gap:6, marginBottom:14, flexWrap:"wrap" }}>
-            {TURNAROUND_DATA.map((c,i) => (
+            {TURNAROUND_DATA.map((c,i)=>(
               <button key={i} onClick={()=>setActiveIdx(i)}
-                style={{ padding:"6px 13px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", gap:6, transition:"all 0.15s" }}>
+                style={{ padding:"6px 13px", background:i===activeIdx?CARD:"transparent", border:`1px solid ${i===activeIdx?c.color:BORDER}`, borderRadius:8, cursor:"pointer", fontFamily:FONT, display:"flex", alignItems:"center", gap:6 }}>
                 <span style={{ fontSize:12, color:i===activeIdx?c.color:TEXT_MUTED }}>{c.icon}</span>
                 <span style={{ fontSize:12, color:i===activeIdx?c.color:TEXT_MUTED, fontWeight:i===activeIdx?700:400 }}>{c.category}</span>
               </button>
             ))}
           </div>
-          {cat.assets.map((asset,ai) => (
+          {cat.assets.map((asset,ai)=>(
             <div key={ai} style={{ border:`1px solid ${BORDER}`, borderRadius:10, marginBottom:10, overflow:"hidden" }}>
               <div style={{ background:BG, padding:"10px 14px", borderBottom:`1px solid ${BORDER}` }}>
                 <div style={{ fontSize:12, color:cat.color, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{asset.name}</div>
                 {asset.note && <div style={{ fontSize:11, color:"#3A3A50", marginTop:3, lineHeight:1.5, fontWeight:300 }}>{asset.note}</div>}
               </div>
-              <div style={{ display:"grid", gridTemplateColumns:"1fr 80px 84px 84px 80px", background:"#0E0E18" }}>
-                {["Scope / Volume","Simple","Standard","Complex","Rush"].map(h=>(
-                  <div key={h} style={{ padding:"6px 10px", fontSize:10, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{h}</div>
+              {/* Header */}
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 70px 68px 68px 68px 70px", background:"#0E0E18" }}>
+                {["Scope","Complexity",asset.rows[0]?.print&&!asset.rows[0]?.lead?"Print-ready":"Lead time","Effort","Revision","Rush"].map(h=>(
+                  <div key={h} style={{ padding:"6px 8px", fontSize:10, color:"#3A3A50", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase" }}>{h}</div>
                 ))}
               </div>
-              {asset.rows.map((row,ri) => (
-                <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 80px 84px 84px 80px", borderTop:`1px solid #1A1A28`, background: ri%2===0?"transparent":"#0C0C16" }}>
-                  <div style={{ padding:"8px 10px", fontSize:13, color:TEXT_MUTED, lineHeight:1.4 }}>{row.scope}</div>
-                  {["simple","standard","complex"].map(k => {
-                    const lead = row[k];
-                    const eff  = row[`eff1${k.charAt(0).toUpperCase()+k.slice(1)}`];
-                    return (
-                      <div key={k} style={{ padding:"8px 10px" }}>
-                        <div style={{ fontSize:13, color:valColor(lead), fontWeight:valWeight(lead), lineHeight:1.3 }}>{lead||"—"}</div>
-                        {lead && eff && eff!=="TOA" && <div style={{ fontSize:11, color:effColor(eff), fontWeight:300, lineHeight:1.3, marginTop:2 }}>{eff}</div>}
-                      </div>
-                    );
-                  })}
-                  <div style={{ padding:"8px 10px", fontSize:12, color:rushColor(row.rush), lineHeight:1.4 }}>{row.rush}</div>
-                </div>
-              ))}
+              {asset.rows.map((row,ri)=>{
+                const mainTime = row.lead || row.print;
+                return (
+                  <div key={ri} style={{ display:"grid", gridTemplateColumns:"1fr 70px 68px 68px 68px 70px", borderTop:`1px solid #1A1A28`, background:ri%2===0?"transparent":"#0C0C16" }}>
+                    <div style={{ padding:"8px 8px", fontSize:12, color:TEXT_MUTED, lineHeight:1.4 }}>{row.scope}</div>
+                    <div style={{ padding:"8px 8px" }}>
+                      <span style={{ fontSize:11, color:CX_COLOR[row.cx]||TEXT_MUTED, fontWeight:600, background:(CX_COLOR[row.cx]||"#333")+"18", borderRadius:3, padding:"2px 5px" }}>{row.cx}</span>
+                    </div>
+                    <div style={{ padding:"8px 8px" }}>
+                      <div style={{ fontSize:13, color:valColor(mainTime), fontWeight:isTOA(mainTime)?300:600 }}>{mainTime||"—"}</div>
+                      {row.print && row.lead && !isTOA(row.print) && <div style={{ fontSize:10, color:"#5A5A7A", fontWeight:300, marginTop:1 }}>{row.print} print-ready</div>}
+                    </div>
+                    <div style={{ padding:"8px 8px", fontSize:12, color:isTOA(row.eff)?"#3A3A50":"#6A6A8A", fontWeight:300 }}>{row.eff||"—"}</div>
+                    <div style={{ padding:"8px 8px", fontSize:12, color:valColor(row.rev) }}>{row.rev||"—"}</div>
+                    <div style={{ padding:"8px 8px", fontSize:12, color:rushColor(row.rush) }}>{row.rush}</div>
+                  </div>
+                );
+              })}
             </div>
           ))}
           <div style={{ background:BG, border:`1px solid ${BORDER}`, borderRadius:8, padding:"10px 14px", marginTop:4 }}>
@@ -1224,7 +1219,7 @@ function OBTurnaroundView() {
                   <span style={{ fontSize:11, color:TEXT_MUTED, fontWeight:300 }}>Rush: {label}</span>
                 </div>
               ))}
-              <span style={{ fontSize:11, color:"#3A3A50", fontWeight:300 }}>· TOA = requires bespoke scoping · Print-ready uplift adds 1–4d for large format &amp; documents</span>
+              <span style={{ fontSize:11, color:"#3A3A50", fontWeight:300 }}>· TOA = requires bespoke scoping · All rush subject to studio capacity confirmation</span>
             </div>
           </div>
         </div>
